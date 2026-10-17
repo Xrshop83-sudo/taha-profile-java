@@ -356,9 +356,22 @@ if(confirm(`${faNum(count)} فعالیت انجام‌شده حذف شود؟`)){
 tasks=tasks.filter(t=>!(t.date===date&&t.done));save();renderAll();
 }
 });
-$("taskDate").value=todayJalali();
-$("searchDate").value=todayJalali();
-renderAll();
+function updateTodayDate() {
+    const today = todayJalali();
+
+    // تاریخ پیش‌فرض ثبت فعالیت را به‌روز کن
+    $("taskDate").value = today;
+
+    // تاریخ جست‌وجو را فقط وقتی تغییر بده که هنوز روز قبلی انتخاب نشده
+    const selectedDate = validJalali($("searchDate").value);
+    if (!selectedDate) {
+        $("searchDate").value = today;
+    }
+
+    renderAll();
+}
+
+updateTodayDate();
 </script>
 </body>
 </html>
