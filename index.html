@@ -662,25 +662,29 @@ input.placeholder = "۱۴۰۵/۰۷/۲۵";
 input.inputMode = "numeric";
 input.maxLength = 10;
 
+input.placeholder = "۱۴۰۵/۰۷/۲۵";
+input.setAttribute("inputmode", "numeric");
+input.maxLength = 10;
+
 input.addEventListener("input", function () {
-    let value = this.value.replace(/[۰-۹]/g, d =>
-        "۰۱۲۳۴۵۶۷۸۹".indexOf(d)
-    );
+    let digits = this.value
+        .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d))
+        .replace(/[^0-9]/g, "")
+        .slice(0, 8);
 
-    value = value.replace(/[^\d]/g, "").slice(0, 8);
+    let formatted = digits;
 
-    if (value.length > 6) {
-        value = value.slice(0, 4) + "/" +
-                value.slice(4, 6) + "/" +
-                value.slice(6);
-    } else if (value.length > 4) {
-        value = value.slice(0, 4) + "/" +
-                value.slice(4);
+    if (digits.length > 4) {
+        formatted = digits.slice(0, 4) + "/" + digits.slice(4);
     }
 
-    this.value = value.replace(/\d/g, d =>
-        "۰۱۲۳۴۵۶۷۸۹"[Number(d)]
-    );
+    if (digits.length > 6) {
+        formatted = digits.slice(0, 4) + "/" +
+                    digits.slice(4, 6) + "/" +
+                    digits.slice(6, 8);
+    }
+
+    this.value = formatted.replace(/[0-9]/g, d => "۰۱۲۳۴۵۶۷۸۹"[Number(d)]);
 });
 initializeToday();
 </script>
