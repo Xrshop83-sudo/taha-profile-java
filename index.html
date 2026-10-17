@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#080d1a">
+<title>My Day | برنامه‌ریز روزانه</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080d1a;color:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;min-height:100vh}
+.container{max-width:650px;margin:auto;padding:25px 15px 45px}
+header{text-align:center;padding:20px 0 28px}
+.logo{display:inline-grid;place-items:center;width:65px;height:65px;border-radius:22px;background:linear-gradient(135deg,#2563eb,#06b6d4);font-size:32px}
+h1{font-size:32px;margin:14px 0 7px}
+.subtitle{color:#94a3b8;font-size:14px}
+.card{background:#111b2e;border:1px solid #263550;border-radius:20px;padding:19px;margin-bottom:17px}
+.heading{font-size:17px;margin:0 0 18px}
+label{display:block;font-size:13px;color:#cbd5e1;margin-bottom:8px}
+input[type=text],input[type=date],input[type=time]{width:100%;min-width:0;padding:13px;background:#0a1324;color:white;border:1px solid #2b3b57;border-radius:12px;outline:none;font-size:14px}
+input:focus{border-color:#438cff}
+input[type=date],input[type=time]{color-scheme:dark}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+button{cursor:pointer;font-family:inherit}
+.add{width:100%;padding:14px;margin-top:15px;border:0;border-radius:12px;background:linear-gradient(100deg,#3478f6,#13a8d4);color:white;font-weight:bold;font-size:15px}
+.date-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px}
+.date-row h2{font-size:17px;margin:0}
+.date-row input{width:155px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}
+.stat{padding:13px 5px;text-align:center;background:#0b1527;border:1px solid #23324a;border-radius:13px}
+.stat strong{display:block;font-size:23px;color:#7cb5ff}
+.stat span{font-size:11px;color:#94a3b8}
+.progress-label{display:flex;justify-content:space-between;color:#94a3b8;font-size:12px;margin-bottom:8px}
+.progress{height:8px;background:#26344b;border-radius:20px;overflow:hidden;margin-bottom:17px}
+.bar{height:100%;width:0;background:linear-gradient(90deg,#438cff,#2dd4bf);transition:width .25s}
+.task{display:flex;align-items:center;gap:11px;padding:13px;margin-top:10px;background:#0c1628;border:1px solid #263550;border-radius:14px}
+.task input[type=checkbox]{width:20px;height:20px;flex-shrink:0;accent-color:#438cff}
+.task-info{flex:1;min-width:0}
+.task-name{font-size:14px;line-height:1.7;overflow-wrap:anywhere}
+.task-time{font-size:12px;color:#94a3b8;margin-top:4px}
+.task.done .task-name{text-decoration:line-through;color:#94a3b8}
+.task.done{opacity:.65}
+.delete{background:#321d2b;color:#fda4af;border:0;border-radius:9px;padding:9px 10px;font-size:12px}
+.empty{text-align:center;padding:28px 8px;color:#8392aa;font-size:14px}
+.actions{display:flex;gap:8px;margin-top:15px}
+.secondary{flex:1;padding:11px 5px;background:#17243a;color:#dbeafe;border:1px solid #30425e;border-radius:10px;font-size:12px}
+.note{font-size:12px;color:#71839f;line-height:1.9;margin-top:15px}
+footer{text-align:center;color:#64748b;font-size:12px;padding:10px}
+@media(max-width:390px){.container{padding-left:10px;padding-right:10px}.card{padding:14px}.date-row h2{font-size:15px}.date-row input{width:140px}.fields{gap:8px}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<div class="logo">✓</div>
+<h1>MY DAY</h1>
+<div class="subtitle">امروزت رو بساز؛ هر روز یک قدم جلوتر.</div>
+</header>
+<section class="card">
+<h2 class="heading">＋ برنامه جدید</h2>
+<label for="taskName">عنوان کار</label>
+<input id="taskName" type="text" maxlength="150" placeholder="مثلاً مطالعه، ورزش، یادگیری برنامه‌نویسی">
+<div class="fields">
+<div>
+<label for="taskDate">تاریخ انجام</label>
+<input id="taskDate" type="date">
+</div>
+<div>
+<label for="taskTime">ساعت انجام</label>
+<input id="taskTime" type="time">
+</div>
+</div>
+<button class="add" id="addBtn">＋ افزودن به برنامه</button>
+</section>
+<section class="card">
+<div class="date-row">
+<h2>📅 برنامه من</h2>
+<input id="viewDate" type="date" aria-label="انتخاب تاریخ">
+</div>
+<div class="stats">
+<div class="stat"><strong id="total">۰</strong><span>کل کارها</span></div>
+<div class="stat"><strong id="completed">۰</strong><span>انجام‌شده</span></div>
+<div class="stat"><strong id="remaining">۰</strong><span>باقی‌مانده</span></div>
+</div>
+<div class="progress-label"><span>میزان پیشرفت</span><span id="percent">۰٪</span></div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div id="taskList"></div>
+<div class="actions">
+<button class="secondary" id="todayBtn">رفتن به امروز</button>
+<button class="secondary" id="clearBtn">حذف کارهای انجام‌شده</button>
+</div>
+<div class="note">اطلاعات برنامه در مرورگر همین دستگاه ذخیره می‌شود. پاک کردن اطلاعات مرورگر ممکن است باعث حذف برنامه‌ها شود.</div>
+</section>
+<footer>MY DAY · برنامه‌ریزی کن، تلاش کن، پیشرفت کن ✨</footer>
+</div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const fa=n=>String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
+function dateString(d){
+return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+const today=dateString(new Date());
+$("taskDate").value=today;
+$("viewDate").value=today;
+let tasks=[];
+try{
+const data=JSON.parse(localStorage.getItem("my-day-planner-v1")||"[]");
+if(Array.isArray(data))tasks=data.filter(t=>t&&typeof t.name==="string"&&typeof t.date==="string");
+}catch(e){tasks=[];}
+function save(){
+try{localStorage.setItem("my-day-planner-v1",JSON.stringify(tasks));}
+catch(e){alert("ذخیره اطلاعات انجام نشد. فضای مرورگر را بررسی کن.");}
+}
+function render(){
+const date=$("viewDate").value;
+const items=tasks.filter(t=>t.date===date).sort((a,b)=>(a.time||"").localeCompare(b.time||""));
+const done=items.filter(t=>t.done).length;
+const total=items.length;
+const pct=total?Math.round(done/total*100):0;
+$("total").textContent=fa(total);
+$("completed").textContent=fa(done);
+$("remaining").textContent=fa(total-done);
+$("percent").textContent=fa(pct)+"٪";
+$("bar").style.width=pct+"%";
+const list=$("taskList");
+list.replaceChildren();
+if(!total){
+const empty=document.createElement("div");
+empty.className="empty";
+empty.textContent="برای این روز هنوز برنامه‌ای نداری 🌱";
+list.appendChild(empty);
+return;
+}
+items.forEach(task=>{
+const row=document.createElement("div");
+row.className="task"+(task.done?" done":"");
+const checkbox=document.createElement("input");
+checkbox.type="checkbox";
+checkbox.checked=!!task.done;
+checkbox.setAttribute("aria-label","انجام شد");
+checkbox.addEventListener("change",()=>{
+task.done=checkbox.checked;
+save();
+render();
+});
+const info=document.createElement("div");
+info.className="task-info";
+const name=document.createElement("div");
+name.className="task-name";
+name.textContent=task.name;
+info.appendChild(name);
+if(task.time){
+const time=document.createElement("div");
+time.className="task-time";
+time.textContent="🕒 "+task.time;
+info.appendChild(time);
+}
+const del=document.createElement("button");
+del.className="delete";
+del.textContent="حذف";
+del.addEventListener("click",()=>{
+if(confirm("این کار حذف شود؟")){
+tasks=tasks.filter(t=>t.id!==task.id);
+save();
+render();
+}
+});
+row.append(checkbox,info,del);
+list.appendChild(row);
+});
+}
+function addTask(){
+const name=$("taskName").value.trim();
+const date=$("taskDate").value;
+const time=$("taskTime").value;
+if(!name){alert("عنوان کار رو وارد کن!");$("taskName").focus();return;}
+if(!date){alert("تاریخ رو انتخاب کن!");return;}
+tasks.push({id:Date.now()+"-"+Math.random().toString(36).slice(2),name,date,time,done:false});
+save();
+$("taskName").value="";
+$("taskTime").value="";
+$("viewDate").value=date;
+render();
+}
+$("addBtn").addEventListener("click",addTask);
+$("taskName").addEventListener("keydown",e=>{if(e.key==="Enter")addTask();});
+$("viewDate").addEventListener("change",render);
+$("todayBtn").addEventListener("click",()=>{
+$("viewDate").value=today;
+$("taskDate").value=today;
+render();
+});
+$("clearBtn").addEventListener("click",()=>{
+const date=$("viewDate").value;
+const count=tasks.filter(t=>t.date===date&&t.done).length;
+if(!count){alert("کاری برای حذف وجود ندارد.");return;}
+if(confirm("کارهای انجام‌شده این روز حذف شوند؟")){
+tasks=tasks.filter(t=>!(t.date===date&&t.done));
+save();
+render();
+}
+});
+render();
+})();
+</script>
+</body>
+</html>
+:::
