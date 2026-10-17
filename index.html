@@ -2,206 +2,363 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#080d1a">
-<title>My Day | برنامه‌ریز روزانه</title>
+<title>My Day</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#080d1a;color:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;min-height:100vh}
-.container{max-width:650px;margin:auto;padding:25px 15px 45px}
-header{text-align:center;padding:20px 0 28px}
-.logo{display:inline-grid;place-items:center;width:65px;height:65px;border-radius:22px;background:linear-gradient(135deg,#2563eb,#06b6d4);font-size:32px}
-h1{font-size:32px;margin:14px 0 7px}
-.subtitle{color:#94a3b8;font-size:14px}
-.card{background:#111b2e;border:1px solid #263550;border-radius:20px;padding:19px;margin-bottom:17px}
-.heading{font-size:17px;margin:0 0 18px}
-label{display:block;font-size:13px;color:#cbd5e1;margin-bottom:8px}
-input[type=text],input[type=date],input[type=time]{width:100%;min-width:0;padding:13px;background:#0a1324;color:white;border:1px solid #2b3b57;border-radius:12px;outline:none;font-size:14px}
-input:focus{border-color:#438cff}
-input[type=date],input[type=time]{color-scheme:dark}
-.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-button{cursor:pointer;font-family:inherit}
-.add{width:100%;padding:14px;margin-top:15px;border:0;border-radius:12px;background:linear-gradient(100deg,#3478f6,#13a8d4);color:white;font-weight:bold;font-size:15px}
-.date-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px}
-.date-row h2{font-size:17px;margin:0}
-.date-row input{width:155px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}
-.stat{padding:13px 5px;text-align:center;background:#0b1527;border:1px solid #23324a;border-radius:13px}
-.stat strong{display:block;font-size:23px;color:#7cb5ff}
-.stat span{font-size:11px;color:#94a3b8}
-.progress-label{display:flex;justify-content:space-between;color:#94a3b8;font-size:12px;margin-bottom:8px}
-.progress{height:8px;background:#26344b;border-radius:20px;overflow:hidden;margin-bottom:17px}
+body{margin:0;background:#080d1a;color:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif}
+.container{max-width:760px;margin:auto;padding:20px 12px 35px}
+header{text-align:center;padding:20px 0 25px}
+.logo{display:inline-grid;place-items:center;width:62px;height:62px;border-radius:20px;background:linear-gradient(135deg,#2563eb,#06b6d4);font-size:30px}
+h1{font-size:27px;margin:12px 0 6px}
+.subtitle{color:#94a3b8;font-size:13px;line-height:2}
+.card{background:#111b2e;border:1px solid #263550;border-radius:18px;padding:16px;margin-bottom:14px}
+.heading{font-size:16px;margin:0 0 16px}
+label{display:block;font-size:12px;color:#cbd5e1;margin-bottom:7px}
+input,select{width:100%;min-width:0;padding:12px;background:#0a1324;color:white;border:1px solid #2b3b57;border-radius:11px;outline:none;font-family:inherit;font-size:14px}
+input:focus,select:focus{border-color:#438cff}
+input[type=time]{color-scheme:dark}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:13px}
+.primary{width:100%;padding:13px;margin-top:16px;border:0;border-radius:12px;background:linear-gradient(100deg,#3478f6,#13a8d4);color:white;font-weight:bold;font-size:14px}
+.date-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}
+.date-row h2{font-size:15px;margin:0}
+.date-row input{max-width:165px;text-align:center}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.stat{padding:13px 9px;background:#0b1527;border:1px solid #23324a;border-radius:13px;min-width:0}
+.stat span{display:block;color:#94a3b8;font-size:11px;line-height:1.8}
+.stat strong{display:block;color:#7cb5ff;font-size:21px;margin-top:5px;overflow-wrap:anywhere}
+.stat small{color:#a5b4fc;font-size:11px}
+.progress-label{display:flex;justify-content:space-between;gap:10px;color:#94a3b8;font-size:12px;margin:17px 0 8px}
+.progress{height:8px;background:#26344b;border-radius:20px;overflow:hidden}
 .bar{height:100%;width:0;background:linear-gradient(90deg,#438cff,#2dd4bf);transition:width .25s}
-.task{display:flex;align-items:center;gap:11px;padding:13px;margin-top:10px;background:#0c1628;border:1px solid #263550;border-radius:14px}
-.task input[type=checkbox]{width:20px;height:20px;flex-shrink:0;accent-color:#438cff}
+.task{display:flex;align-items:center;gap:9px;padding:12px;margin-top:10px;background:#0c1628;border:1px solid #263550;border-radius:13px}
+.task input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:#438cff}
 .task-info{flex:1;min-width:0}
-.task-name{font-size:14px;line-height:1.7;overflow-wrap:anywhere}
-.task-time{font-size:12px;color:#94a3b8;margin-top:4px}
+.task-name{font-size:13px;line-height:1.8;overflow-wrap:anywhere}
+.task-meta{font-size:11px;color:#94a3b8;line-height:2;margin-top:3px}
 .task.done .task-name{text-decoration:line-through;color:#94a3b8}
-.task.done{opacity:.65}
-.delete{background:#321d2b;color:#fda4af;border:0;border-radius:9px;padding:9px 10px;font-size:12px}
-.empty{text-align:center;padding:28px 8px;color:#8392aa;font-size:14px}
-.actions{display:flex;gap:8px;margin-top:15px}
+.task.done{opacity:.7}
+.delete{background:#321d2b;color:#fda4af;border:0;border-radius:9px;padding:9px;font-size:11px;white-space:nowrap}
+.empty{text-align:center;padding:22px 8px;color:#8392aa;font-size:13px;line-height:2}
+.actions{display:flex;gap:8px;margin-top:13px}
 .secondary{flex:1;padding:11px 5px;background:#17243a;color:#dbeafe;border:1px solid #30425e;border-radius:10px;font-size:12px}
-.note{font-size:12px;color:#71839f;line-height:1.9;margin-top:15px}
-footer{text-align:center;color:#64748b;font-size:12px;padding:10px}
-@media(max-width:390px){.container{padding-left:10px;padding-right:10px}.card{padding:14px}.date-row h2{font-size:15px}.date-row input{width:140px}.fields{gap:8px}}
+.chart{display:flex;align-items:flex-end;justify-content:space-around;gap:5px;height:185px;padding:12px 2px 0;border-bottom:1px solid #30425e}
+.day-col{display:flex;flex:1;min-width:0;height:100%;flex-direction:column;justify-content:flex-end;align-items:center;gap:7px}
+.day-hours{font-size:9px;color:#cbd5e1;text-align:center;white-space:nowrap}
+.bar-wrap{width:100%;max-width:34px;height:120px;display:flex;align-items:flex-end;justify-content:center}
+.chart-bar{width:100%;min-height:3px;border-radius:7px 7px 2px 2px;background:linear-gradient(180deg,#22d3ee,#438cff)}
+.day-label{font-size:9px;color:#94a3b8;padding-bottom:8px;white-space:nowrap}
+.chart-note,.note{font-size:11px;color:#71839f;line-height:2;margin-top:12px}
+.history-item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #263550;cursor:pointer}
+.history-item:last-child{border-bottom:0}
+.history-date{font-size:13px}
+.history-sub{font-size:11px;color:#94a3b8;margin-top:5px}
+.history-hours{font-size:11px;color:#7dd3fc;text-align:left}
+.footer{text-align:center;color:#8291a8;font-size:12px;line-height:2.2;padding:17px 5px}
+.footer strong{display:block;color:#dbeafe;font-size:13px}
+@media(min-width:520px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:390px){.container{padding-left:9px;padding-right:9px}.card{padding:12px}.grid{gap:8px}.date-row{gap:6px}.date-row h2{font-size:13px}.date-row input{max-width:150px;padding:11px 5px;font-size:12px}.task{gap:7px;padding:10px}.delete{padding:8px}.chart{gap:3px}}
 </style>
 </head>
 <body>
 <div class="container">
 <header>
-<div class="logo">✓</div>
-<h1>MY DAY</h1>
-<div class="subtitle">امروزت رو بساز؛ هر روز یک قدم جلوتر.</div>
+<div class="logo">📘</div>
+<h1>دفتر برنامه‌ریزی من</h1>
+<div class="subtitle">هر روز ثبت کن، پیشرفتت رو ببین و برای هدفت تلاش کن.</div>
 </header>
 <section class="card">
-<h2 class="heading">＋ برنامه جدید</h2>
-<label for="taskName">عنوان کار</label>
-<input id="taskName" type="text" maxlength="150" placeholder="مثلاً مطالعه، ورزش، یادگیری برنامه‌نویسی">
-<div class="fields">
-<div>
-<label for="taskDate">تاریخ انجام</label>
-<input id="taskDate" type="date">
+<h2 class="heading">＋ ثبت فعالیت جدید</h2>
+<label for="taskName">عنوان فعالیت</label>
+<input id="taskName" maxlength="150" placeholder="مثلاً مطالعه فیزیک، ورزش، زبان انگلیسی">
+<div class="grid">
+<div><label for="taskType">نوع فعالیت</label>
+<select id="taskType">
+<option value="study">📚 مطالعه</option>
+<option value="exercise">🏃 ورزش</option>
+<option value="work">💻 کار و یادگیری</option>
+<option value="personal">✨ کار شخصی</option>
+<option value="other">📌 سایر فعالیت‌ها</option>
+</select></div>
+<div><label for="taskDate">تاریخ شمسی</label>
+<input id="taskDate" inputmode="numeric" maxlength="10" placeholder="۱۴۰۵/۰۷/۲۵"></div>
 </div>
-<div>
-<label for="taskTime">ساعت انجام</label>
-<input id="taskTime" type="time">
+<div class="grid">
+<div><label for="startTime">🕒 ساعت شروع</label><input id="startTime" type="time"></div>
+<div><label for="endTime">🕒 ساعت پایان</label><input id="endTime" type="time"></div>
 </div>
-</div>
-<button class="add" id="addBtn">＋ افزودن به برنامه</button>
+<button class="primary" id="addBtn">＋ ثبت فعالیت در دفتر روزانه</button>
+<div class="note">برای محاسبه مدت، ساعت شروع و پایان را وارد کن. فقط فعالیت‌های نوع مطالعه در آمار مطالعه حساب می‌شوند.</div>
 </section>
 <section class="card">
-<div class="date-row">
-<h2>📅 برنامه من</h2>
-<input id="viewDate" type="date" aria-label="انتخاب تاریخ">
+<div class="date-row"><h2>🔎 جست‌وجوی سوابق روزانه</h2><input id="searchDate" inputmode="numeric" maxlength="10" placeholder="۱۴۰۵/۰۷/۲۵" aria-label="جست‌وجوی تاریخ شمسی"></div>
+<div class="actions"><button class="secondary" id="searchBtn">نمایش این روز</button><button class="secondary" id="todayBtn">امروز</button></div>
+<div id="selectedDateTitle" style="font-size:12px;color:#94a3b8;margin-top:14px"></div>
+<div class="stats" style="margin-top:13px">
+<div class="stat"><span>📚 مطالعه این روز</span><strong id="dayStudy">۰ دقیقه</strong></div>
+<div class="stat"><span>⏱️ مجموع فعالیت‌ها</span><strong id="dayAll">۰ دقیقه</strong></div>
+<div class="stat"><span>📋 تعداد کارها</span><strong id="dayTotal">۰</strong></div>
+<div class="stat"><span>✅ انجام‌شده</span><strong id="dayDone">۰</strong></div>
 </div>
-<div class="stats">
-<div class="stat"><strong id="total">۰</strong><span>کل کارها</span></div>
-<div class="stat"><strong id="completed">۰</strong><span>انجام‌شده</span></div>
-<div class="stat"><strong id="remaining">۰</strong><span>باقی‌مانده</span></div>
-</div>
-<div class="progress-label"><span>میزان پیشرفت</span><span id="percent">۰٪</span></div>
-<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="progress-label"><span>پیشرفت فعالیت‌های روز</span><span id="dayPercent">۰٪</span></div>
+<div class="progress"><div class="bar" id="dayBar"></div></div>
 <div id="taskList"></div>
-<div class="actions">
-<button class="secondary" id="todayBtn">رفتن به امروز</button>
-<button class="secondary" id="clearBtn">حذف کارهای انجام‌شده</button>
-</div>
-<div class="note">اطلاعات برنامه در مرورگر همین دستگاه ذخیره می‌شود. پاک کردن اطلاعات مرورگر ممکن است باعث حذف برنامه‌ها شود.</div>
+<div class="actions"><button class="secondary" id="clearDoneBtn">حذف کارهای انجام‌شده این روز</button></div>
 </section>
-<footer>MY DAY · برنامه‌ریزی کن، تلاش کن، پیشرفت کن ✨</footer>
+<section class="card">
+<h2 class="heading">📊 آمار کلی و پیشرفت</h2>
+<div class="stats">
+<div class="stat"><span>مطالعه امروز</span><strong id="todayStudy">۰</strong><small>ساعت</small></div>
+<div class="stat"><span>مطالعه این هفته</span><strong id="weekStudy">۰</strong><small>ساعت</small></div>
+<div class="stat"><span>مطالعه کل ثبت‌شده</span><strong id="allStudy">۰</strong><small>ساعت</small></div>
+<div class="stat"><span>کل فعالیت‌ها</span><strong id="allTasks">۰</strong><small>فعالیت ثبت‌شده</small></div>
+</div>
+</section>
+<section class="card">
+<h2 class="heading">📈 نمودار مطالعه هفتگی</h2>
+<div class="chart" id="weeklyChart"></div>
+<div class="chart-note">نمودار بر اساس مدت فعالیت‌های ثبت‌شده در دسته مطالعه ساخته می‌شود.</div>
+</section>
+<section class="card">
+<h2 class="heading">🗓️ روزهای ثبت‌شده</h2>
+<div id="historyList"></div>
+</section>
+<div class="footer"><strong>سازنده : توسط طاها مهدی نژاد</strong>تمام اطلاعات این نسخه در مرورگر همین دستگاه ذخیره می‌شود.</div>
 </div>
 <script>
-(function(){
+"use strict";
 const $=id=>document.getElementById(id);
-const fa=n=>String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
-function dateString(d){
-return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-}
-const today=dateString(new Date());
-$("taskDate").value=today;
-$("viewDate").value=today;
+const STORAGE_KEY="my-day-planner-v1";
+const types={study:"📚 مطالعه",exercise:"🏃 ورزش",work:"💻 کار و یادگیری",personal:"✨ کار شخصی",other:"📌 سایر فعالیت‌ها"};
 let tasks=[];
 try{
-const data=JSON.parse(localStorage.getItem("my-day-planner-v1")||"[]");
-if(Array.isArray(data))tasks=data.filter(t=>t&&typeof t.name==="string"&&typeof t.date==="string");
-}catch(e){tasks=[];}
-function save(){
-try{localStorage.setItem("my-day-planner-v1",JSON.stringify(tasks));}
-catch(e){alert("ذخیره اطلاعات انجام نشد. فضای مرورگر را بررسی کن.");}
+const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");
+if(Array.isArray(saved))tasks=saved.map(t=>({...t,date:normalizeStoredDate(t.date)}));
+}catch(e){tasks=[]}
+
+function faNum(value){return String(value).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[Number(d)])}
+function latinNum(value){return String(value).replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d))}
+function pad(n){return String(n).padStart(2,"0")}
+function todayJalali(){
+const d=new Date();
+return gregorianToJalali(d.getFullYear(),d.getMonth()+1,d.getDate());
 }
-function render(){
-const date=$("viewDate").value;
-const items=tasks.filter(t=>t.date===date).sort((a,b)=>(a.time||"").localeCompare(b.time||""));
-const done=items.filter(t=>t.done).length;
-const total=items.length;
-const pct=total?Math.round(done/total*100):0;
-$("total").textContent=fa(total);
-$("completed").textContent=fa(done);
-$("remaining").textContent=fa(total-done);
-$("percent").textContent=fa(pct)+"٪";
-$("bar").style.width=pct+"%";
-const list=$("taskList");
-list.replaceChildren();
-if(!total){
-const empty=document.createElement("div");
-empty.className="empty";
-empty.textContent="برای این روز هنوز برنامه‌ای نداری 🌱";
-list.appendChild(empty);
-return;
+function formatJ(y,m,d){return `${y}/${pad(m)}/${pad(d)}`}
+function gregorianToJalali(gy,gm,gd){
+const gdm=[0,31,((gy%4===0&&gy%100!==0)||gy%400===0)?29:28,31,30,31,30,31,31,30,31,30,31];
+let gy2=gm>2?gy+1:gy;
+let days=355666+365*gy+Math.floor((gy2+3)/4)-Math.floor((gy2+99)/100)+Math.floor((gy2+399)/400)+gd;
+for(let i=1;i<gm;i++)days+=gdm[i];
+let jy=-1595;
+days-=79;
+const cycle=Math.floor(days/12053);
+days%=12053;
+jy+=33*cycle+4*Math.floor(days/1461);
+days%=1461;
+if(days>=366){jy+=Math.floor((days-1)/365);days=(days-1)%365}
+let jm,jd;
+if(days<186){jm=1+Math.floor(days/31);jd=1+days%31}
+else{jm=7+Math.floor((days-186)/30);jd=1+(days-186)%30}
+return formatJ(jy,jm,jd);
 }
-items.forEach(task=>{
+function jalaliToGregorian(jy,jm,jd){
+jy=Number(jy);jm=Number(jm);jd=Number(jd);
+if(!Number.isInteger(jy)||!Number.isInteger(jm)||!Number.isInteger(jd)||jm<1||jm>12||jd<1||jd>(jm<=6?31:jm<=11?30:30))return null;
+let jy2=jy+1595;
+let days=-355668+365*jy2+Math.floor(jy2/33)*8+Math.floor(((jy2%33)+3)/4)+jd;
+if(jm<=6)days+=(jm-1)*31;else days+=186+(jm-7)*30;
+let gy=400*Math.floor(days/146097);
+days%=146097;
+if(days>36524){gy+=100*Math.floor(--days/36524);days%=36524;if(days>=365)days++}
+gy+=4*Math.floor(days/1461);
+days%=1461;
+if(days>365){gy+=Math.floor((days-1)/365);days=(days-1)%365}
+let gd=days+1;
+const leap=(gy%4===0&&gy%100!==0)||gy%400===0;
+const months=[0,31,leap?29:28,31,30,31,30,31,31,30,31,30,31];
+let gm=1;
+while(gm<=12&&gd>months[gm]){gd-=months[gm];gm++}
+if(gm>12)return null;
+return {y:gy,m:gm,d:gd};
+}
+function validJalali(str){
+const s=latinNum(str.trim()).replace(/-/g,"/");
+const match=s.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/);
+if(!match)return null;
+const y=+match[1],m=+match[2],d=+match[3];
+if(m<1||m>12||d<1||d>(m<=6?31:m<=11?30:((y%33===1||y%33===5||y%33===9||y%33===13||y%33===17||y%33===22||y%33===26||y%33===30)?30:29)))return null;
+const g=jalaliToGregorian(y,m,d);
+if(!g)return null;
+return formatJ(y,m,d);
+}
+function normalizeStoredDate(date){
+if(typeof date!=="string")return todayJalali();
+if(/^\d{4}-\d{2}-\d{2}$/.test(date)){
+const [y,m,d]=date.split("-").map(Number);
+return gregorianToJalali(y,m,d);
+}
+return validJalali(date)||todayJalali();
+}
+function toDate(date){
+const v=validJalali(date);
+if(!v)return null;
+const [jy,jm,jd]=v.split("/").map(Number);
+return jalaliToGregorian(jy,jm,jd);
+}
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(tasks))}catch(e){alert("ذخیره‌سازی مرورگر در دسترس نیست. فضای مرورگر را بررسی کن.")}}
+function duration(t){
+if(!t.startTime||!t.endTime)return 0;
+const [sh,sm]=t.startTime.split(":").map(Number);
+const [eh,em]=t.endTime.split(":").map(Number);
+let n=eh*60+em-(sh*60+sm);
+if(n<0)n+=1440;
+return n;
+}
+function total(list){return list.reduce((sum,t)=>sum+duration(t),0)}
+function studyTotal(list){return total(list.filter(t=>t.type==="study"))}
+function fmtMinutes(n){
+if(!n)return "۰ دقیقه";
+const h=Math.floor(n/60),m=n%60;
+if(h&&m)return `${faNum(h)} ساعت و ${faNum(m)} دقیقه`;
+if(h)return `${faNum(h)} ساعت`;
+return `${faNum(m)} دقیقه`;
+}
+function fmtHours(n){return faNum((n/60).toFixed(1))}
+function dayOfWeek(date){
+const g=toDate(date);
+if(!g)return 0;
+return new Date(g.y,g.m-1,g.d).getDay();
+}
+function weekDates(){
+const today=todayJalali();
+const g=toDate(today);
+const now=new Date(g.y,g.m-1,g.d);
+const day=(now.getDay()+1)%7;
+now.setDate(now.getDate()-day);
+const result=[];
+for(let i=0;i<7;i++){
+const d=new Date(now);
+d.setDate(now.getDate()+i);
+result.push(gregorianToJalali(d.getFullYear(),d.getMonth()+1,d.getDate()));
+}
+return result;
+}
+function showDate(){
+const date=validJalali($("searchDate").value);
+if(!date){alert("تاریخ را به شکل ۱۴۰۵/۰۷/۲۵ وارد کن.");return}
+$("searchDate").value=date;
+renderDay(date);
+}
+function renderDay(date){
+$("selectedDateTitle").textContent="فعالیت‌های تاریخ "+faNum(date);
+const list=tasks.filter(t=>t.date===date).sort((a,b)=>(a.startTime||"").localeCompare(b.startTime||""));
+$("dayStudy").textContent=fmtMinutes(studyTotal(list));
+$("dayAll").textContent=fmtMinutes(total(list));
+$("dayTotal").textContent=faNum(list.length);
+$("dayDone").textContent=faNum(list.filter(t=>t.done).length);
+const pct=list.length?Math.round(100*list.filter(t=>t.done).length/list.length):0;
+$("dayPercent").textContent=faNum(pct)+"٪";
+$("dayBar").style.width=pct+"%";
+const box=$("taskList");
+box.replaceChildren();
+if(!list.length){box.innerHTML='<div class="empty">برای این روز هنوز فعالیتی ثبت نکرده‌ای.<br>از فرم بالا اولین فعالیتت رو اضافه کن.</div>';return}
+list.forEach(t=>{
 const row=document.createElement("div");
-row.className="task"+(task.done?" done":"");
+row.className="task"+(t.done?" done":"");
 const checkbox=document.createElement("input");
-checkbox.type="checkbox";
-checkbox.checked=!!task.done;
-checkbox.setAttribute("aria-label","انجام شد");
-checkbox.addEventListener("change",()=>{
-task.done=checkbox.checked;
-save();
-render();
-});
-const info=document.createElement("div");
-info.className="task-info";
-const name=document.createElement("div");
-name.className="task-name";
-name.textContent=task.name;
-info.appendChild(name);
-if(task.time){
-const time=document.createElement("div");
-time.className="task-time";
-time.textContent="🕒 "+task.time;
-info.appendChild(time);
-}
-const del=document.createElement("button");
-del.className="delete";
-del.textContent="حذف";
-del.addEventListener("click",()=>{
-if(confirm("این کار حذف شود؟")){
-tasks=tasks.filter(t=>t.id!==task.id);
-save();
-render();
-}
-});
-row.append(checkbox,info,del);
-list.appendChild(row);
+checkbox.type="checkbox";checkbox.checked=!!t.done;checkbox.setAttribute("aria-label","انجام شد");
+checkbox.addEventListener("change",()=>{t.done=checkbox.checked;save();renderAll()});
+const info=document.createElement("div");info.className="task-info";
+const name=document.createElement("div");name.className="task-name";name.textContent=t.name;
+const meta=document.createElement("div");meta.className="task-meta";
+const time=t.startTime&&t.endTime?`${t.startTime} تا ${t.endTime} · ${fmtMinutes(duration(t))}`:(t.startTime?`شروع: ${t.startTime}`:"زمان ثبت نشده");
+meta.textContent=(types[t.type]||types.other)+" · "+time;
+info.append(name,meta);
+const del=document.createElement("button");del.className="delete";del.textContent="حذف";
+del.addEventListener("click",()=>{if(confirm("این فعالیت حذف شود؟")){tasks=tasks.filter(x=>x.id!==t.id);save();renderAll()}});
+row.append(checkbox,info,del);box.append(row);
 });
 }
-function addTask(){
+function renderStats(){
+const today=todayJalali();
+$("todayStudy").textContent=fmtHours(studyTotal(tasks.filter(t=>t.date===today)));
+const week=weekDates();
+$("weekStudy").textContent=fmtHours(studyTotal(tasks.filter(t=>week.includes(t.date))));
+$("allStudy").textContent=fmtHours(studyTotal(tasks));
+$("allTasks").textContent=faNum(tasks.length);
+const names=["یکشنبه","دوشنبه","سه‌شنبه","چهارشنبه","پنجشنبه","جمعه","شنبه"];
+const chart=$("weeklyChart");chart.replaceChildren();
+const dates=week;
+const values=dates.map(date=>studyTotal(tasks.filter(t=>t.date===date)));
+const max=Math.max(60,...values);
+dates.forEach((date,i)=>{
+const col=document.createElement("div");col.className="day-col";
+const label=document.createElement("div");label.className="day-hours";label.textContent=values[i]?fmtHours(values[i])+"س":"۰";
+const wrap=document.createElement("div");wrap.className="bar-wrap";
+const bar=document.createElement("div");bar.className="chart-bar";bar.style.height=Math.max(3,values[i]/max*120)+"px";bar.title=date;
+wrap.append(bar);
+const day=document.createElement("div");day.className="day-label";
+const g=toDate(date);const dow=(new Date(g.y,g.m-1,g.d).getDay());
+day.textContent=names[dow]+" "+faNum(Number(date.slice(8)));
+col.append(label,wrap,day);chart.append(col);
+});
+}
+function renderHistory(){
+const box=$("historyList");box.replaceChildren();
+const dates=[...new Set(tasks.map(t=>t.date))].sort((a,b)=>b.localeCompare(a));
+if(!dates.length){box.innerHTML='<div class="empty">هنوز سابقه‌ای ثبت نشده است.</div>';return}
+dates.forEach(date=>{
+const list=tasks.filter(t=>t.date===date);
+const row=document.createElement("div");row.className="history-item";
+const left=document.createElement("div");
+const d=document.createElement("div");d.className="history-date";d.textContent=faNum(date);
+const sub=document.createElement("div");sub.className="history-sub";sub.textContent=`${faNum(list.length)} فعالیت · ${faNum(list.filter(t=>t.done).length)} انجام‌شده`;
+left.append(d,sub);
+const right=document.createElement("div");right.className="history-hours";right.textContent="مطالعه: "+fmtMinutes(studyTotal(list));
+row.append(left,right);
+row.addEventListener("click",()=>{$("searchDate").value=date;renderDay(date);window.scrollTo({top:$("searchDate").getBoundingClientRect().top+window.scrollY-25,behavior:"smooth"})});
+box.append(row);
+});
+}
+function renderAll(){
+const date=validJalali($("searchDate").value)||todayJalali();
+renderDay(date);renderStats();renderHistory();
+}
+$("addBtn").addEventListener("click",()=>{
 const name=$("taskName").value.trim();
-const date=$("taskDate").value;
-const time=$("taskTime").value;
-if(!name){alert("عنوان کار رو وارد کن!");$("taskName").focus();return;}
-if(!date){alert("تاریخ رو انتخاب کن!");return;}
-tasks.push({id:Date.now()+"-"+Math.random().toString(36).slice(2),name,date,time,done:false});
-save();
+const date=validJalali($("taskDate").value);
+const start=$("startTime").value;
+const end=$("endTime").value;
+if(!name){alert("عنوان فعالیت را وارد کن.");$("taskName").focus();return}
+if(!date){alert("تاریخ شمسی معتبر وارد کن؛ مثال ۱۴۰۵/۰۷/۲۵");$("taskDate").focus();return}
+if((start&&!end)||(!start&&end)){alert("برای محاسبه مدت، ساعت شروع و پایان را هر دو وارد کن یا هر دو را خالی بگذار.");return}
+if(start&&end&&start===end){alert("ساعت شروع و پایان یکسان است. زمان‌ها را بررسی کن.");return}
+const task={id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),name,date,type:$("taskType").value,startTime:start,endTime:end,done:false};
+tasks.push(task);save();
 $("taskName").value="";
-$("taskTime").value="";
-$("viewDate").value=date;
-render();
-}
-$("addBtn").addEventListener("click",addTask);
-$("taskName").addEventListener("keydown",e=>{if(e.key==="Enter")addTask();});
-$("viewDate").addEventListener("change",render);
+$("taskDate").value=date;
+$("searchDate").value=date;
+$("startTime").value="";$("endTime").value="";
+renderAll();
+alert("فعالیت با موفقیت ثبت شد ✅");
+});
+$("searchBtn").addEventListener("click",showDate);
+$("searchDate").addEventListener("keydown",e=>{if(e.key==="Enter")showDate()});
 $("todayBtn").addEventListener("click",()=>{
-$("viewDate").value=today;
-$("taskDate").value=today;
-render();
+const date=todayJalali();$("searchDate").value=date;$("taskDate").value=date;renderAll();
 });
-$("clearBtn").addEventListener("click",()=>{
-const date=$("viewDate").value;
+$("clearDoneBtn").addEventListener("click",()=>{
+const date=validJalali($("searchDate").value)||todayJalali();
 const count=tasks.filter(t=>t.date===date&&t.done).length;
-if(!count){alert("کاری برای حذف وجود ندارد.");return;}
-if(confirm("کارهای انجام‌شده این روز حذف شوند؟")){
-tasks=tasks.filter(t=>!(t.date===date&&t.done));
-save();
-render();
+if(!count){alert("برای این روز فعالیت انجام‌شده‌ای وجود ندارد.");return}
+if(confirm(`${faNum(count)} فعالیت انجام‌شده حذف شود؟`)){
+tasks=tasks.filter(t=>!(t.date===date&&t.done));save();renderAll();
 }
 });
-render();
-})();
+$("taskDate").value=todayJalali();
+$("searchDate").value=todayJalali();
+renderAll();
 </script>
 </body>
 </html>
