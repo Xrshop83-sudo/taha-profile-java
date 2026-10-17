@@ -40,41 +40,47 @@ body {
 
 header {
     text-align: center;
-    padding: 22px 10px;
+    padding: 25px 12px 28px;
 }
 
 header h1 {
-    font-size: 26px;
+    font-size: 27px;
     margin: 0 0 12px;
     color: var(--cyan);
+    letter-spacing: -.5px;
 }
 
 header p {
     color: var(--muted);
     font-size: 13px;
     line-height: 2;
+    margin: 0;
 }
 
 .card {
-    background: rgba(16, 30, 53, .96);
+    background: linear-gradient(145deg, #101e35, #0d1a30);
     border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 18px;
-    margin-bottom: 17px;
-    box-shadow: 0 8px 25px rgba(0,0,0,.15);
+    border-radius: 20px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.16);
 }
 
 h2 {
     font-size: 17px;
-    margin: 0 0 17px;
+    margin: 0 0 22px;
     color: var(--cyan);
+    display: flex;
+    align-items: center;
+    gap: 9px;
 }
 
 label {
     display: block;
     font-size: 12px;
-    color: var(--muted);
-    margin: 0 0 8px;
+    color: #b3c5df;
+    margin: 0 0 9px;
+    font-weight: bold;
 }
 
 input, select, button {
@@ -83,30 +89,39 @@ input, select, button {
 }
 
 input, select {
+    display: block;
     width: 100%;
     min-width: 0;
-    height: 46px;
+    height: 48px;
     background: #09172b;
     color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px;
+    border: 1px solid #2a405f;
+    border-radius: 12px;
+    padding: 10px 12px;
     outline: none;
+    transition: border-color .2s, box-shadow .2s, background .2s;
 }
 
 input:focus, select:focus {
     border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(57,149,255,.12);
+    background: #0b1b32;
 }
 
 input::placeholder {
     color: #7186a5;
+    font-size: 12px;
+}
+
+select {
+    cursor: pointer;
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-    margin-bottom: 14px;
+    gap: 18px 15px;
+    margin-bottom: 20px;
 }
 
 .field {
@@ -117,70 +132,82 @@ input::placeholder {
     grid-column: 1 / -1;
 }
 
-button {
-    border: 0;
-    border-radius: 10px;
-    padding: 13px 15px;
+.primary {
+    display: block;
+    width: 100%;
+    min-height: 49px;
+    background: linear-gradient(100deg, #2879ee, #536bff);
+    color: white;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 13px;
+    padding: 14px;
     cursor: pointer;
     font-weight: bold;
-    transition: .2s;
-}
-
-.primary {
-    background: linear-gradient(100deg, var(--blue), #536bff);
-    color: white;
-    width: 100%;
+    box-shadow: 0 6px 18px rgba(45,120,255,.16);
+    transition: transform .2s, filter .2s;
 }
 
 .primary:active {
-    transform: scale(.98);
+    transform: scale(.985);
+    filter: brightness(1.1);
 }
 
 .secondary {
     background: #1b3352;
     color: white;
     border: 1px solid var(--border);
+    border-radius: 12px;
 }
 
 .danger {
     background: #482334;
     color: #ffb4c0;
+    border: 1px solid #673448;
+    border-radius: 10px;
+}
+
+button {
+    padding: 12px 15px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .stats {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    gap: 13px;
 }
 
 .stat {
-    background: var(--panel2);
-    border: 1px solid var(--border);
-    padding: 15px 10px;
+    background: linear-gradient(145deg, #142641, #102038);
+    border: 1px solid #293f5d;
+    padding: 19px 10px;
     text-align: center;
-    border-radius: 13px;
+    border-radius: 16px;
+    min-width: 0;
 }
 
 .stat .number {
     color: var(--cyan);
-    font-size: 23px;
+    font-size: 21px;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     overflow-wrap: anywhere;
 }
 
 .stat .caption {
     color: var(--muted);
     font-size: 12px;
+    line-height: 1.8;
 }
 
 .progress-track {
     width: 100%;
-    height: 11px;
+    height: 12px;
     background: #26354c;
     border-radius: 20px;
     overflow: hidden;
-    margin: 13px 0 8px;
+    margin: 15px 0 10px;
 }
 
 .progress-fill {
@@ -199,15 +226,21 @@ button {
 
 .task {
     background: #0b1a30;
-    border: 1px solid var(--border);
-    border-radius: 13px;
-    padding: 14px;
-    margin-bottom: 11px;
+    border: 1px solid #293d59;
+    border-radius: 15px;
+    padding: 16px;
+    margin-bottom: 12px;
+    transition: border-color .2s, background .2s;
+}
+
+.task:last-child {
+    margin-bottom: 0;
 }
 
 .task.done {
     border-color: #246b5b;
-    opacity: .75;
+    background: #0b211f;
+    opacity: .82;
 }
 
 .task.done .task-title {
@@ -217,7 +250,7 @@ button {
 .task-top {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 12px;
 }
 
 .task-check {
@@ -236,57 +269,65 @@ button {
 .task-title {
     font-size: 15px;
     font-weight: bold;
+    line-height: 1.9;
     overflow-wrap: anywhere;
 }
 
 .task-meta {
     color: var(--muted);
     font-size: 12px;
-    line-height: 2;
-    margin-top: 8px;
+    line-height: 2.2;
+    margin-top: 9px;
     overflow-wrap: anywhere;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    padding: 7px 10px;
+    border-radius: 9px;
+    background: #19385b;
+    color: #b6dcff;
+    margin-top: 9px;
+    border: 1px solid #274b70;
 }
 
 .task-actions {
     display: flex;
     justify-content: flex-end;
-    margin-top: 10px;
+    margin-top: 13px;
 }
 
 .task-actions button {
     font-size: 12px;
-    padding: 8px 12px;
-}
-
-.badge {
-    display: inline-block;
-    font-size: 11px;
-    padding: 5px 8px;
-    border-radius: 7px;
-    background: #19385b;
-    color: #9dd3ff;
-    margin-top: 8px;
+    padding: 9px 13px;
 }
 
 .empty {
     text-align: center;
     color: var(--muted);
-    padding: 25px 10px;
+    padding: 27px 12px;
     font-size: 13px;
+    line-height: 2;
+    background: #0b1a30;
+    border: 1px dashed #304560;
+    border-radius: 13px;
 }
 
 .bar-row {
     display: grid;
-    grid-template-columns: 85px minmax(0, 1fr) 50px;
-    gap: 9px;
+    grid-template-columns: 80px minmax(0, 1fr) 75px;
+    gap: 10px;
     align-items: center;
-    margin: 14px 0;
+    margin: 18px 0;
     font-size: 12px;
 }
 
 .bar-track {
     background: #26354c;
-    height: 10px;
+    height: 11px;
     border-radius: 20px;
     overflow: hidden;
 }
@@ -295,28 +336,30 @@ button {
     height: 100%;
     background: linear-gradient(90deg, var(--blue), var(--cyan));
     border-radius: 20px;
+    transition: width .3s;
 }
 
 .bar-value {
     color: var(--muted);
     text-align: left;
+    white-space: nowrap;
 }
 
 footer {
     text-align: center;
     color: #91a5c2;
-    padding: 22px 5px 10px;
+    padding: 25px 5px 12px;
     font-size: 12px;
     line-height: 2;
 }
 
 .notice {
     display: none;
-    padding: 12px;
-    border-radius: 10px;
-    margin-bottom: 14px;
+    padding: 13px 15px;
+    border-radius: 12px;
+    margin-bottom: 16px;
     font-size: 13px;
-    line-height: 1.8;
+    line-height: 1.9;
 }
 
 .notice.show {
@@ -326,11 +369,20 @@ footer {
 .notice.error {
     color: #ffc1ca;
     background: #40202c;
+    border: 1px solid #663144;
 }
 
 .notice.success {
     color: #a8f4d5;
     background: #12372f;
+    border: 1px solid #246b5b;
+}
+
+.section-caption {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 2;
+    margin: -9px 0 18px;
 }
 
 @media (max-width: 480px) {
@@ -338,26 +390,93 @@ footer {
         padding: 11px;
     }
 
-    .card {
-        padding: 14px;
+    header {
+        padding: 22px 8px 24px;
     }
 
     header h1 {
-        font-size: 22px;
+        font-size: 23px;
+    }
+
+    .card {
+        padding: 16px;
+        border-radius: 17px;
+        margin-bottom: 15px;
+    }
+
+    h2 {
+        font-size: 16px;
+        margin-bottom: 19px;
     }
 
     .grid {
-        gap: 11px;
+        gap: 15px 10px;
+        margin-bottom: 17px;
     }
 
     input, select {
+        height: 46px;
+        padding: 9px;
         font-size: 13px;
-        padding: 8px;
+    }
+
+    input::placeholder {
+        font-size: 11px;
+    }
+
+    label {
+        font-size: 11px;
+        line-height: 1.8;
+    }
+
+    .stats {
+        gap: 10px;
+    }
+
+    .stat {
+        padding: 16px 7px;
+        border-radius: 13px;
+    }
+
+    .stat .number {
+        font-size: 19px;
+    }
+
+    .stat .caption {
+        font-size: 11px;
+    }
+
+    .task {
+        padding: 13px;
     }
 
     .bar-row {
-        grid-template-columns: 72px minmax(0, 1fr) 45px;
-        gap: 6px;
+        grid-template-columns: 65px minmax(0, 1fr) 68px;
+        gap: 7px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 350px) {
+    body {
+        padding: 8px;
+    }
+
+    .card {
+        padding: 12px;
+    }
+
+    .grid {
+        gap: 13px 8px;
+    }
+
+    input, select {
+        padding: 7px;
+        font-size: 12px;
+    }
+
+    .stat .number {
+        font-size: 17px;
     }
 }
 </style>
@@ -380,25 +499,25 @@ footer {
         <div class="grid">
 
             <div class="field full">
-                <label for="taskTitle">عنوان فعالیت</label>
+                <label for="taskTitle">📝 عنوان فعالیت</label>
                 <input id="taskTitle" type="text"
                        placeholder="مثلاً مطالعه فصل اول فیزیک"
                        maxlength="120" required>
             </div>
 
             <div class="field">
-                <label for="taskType">دسته‌بندی</label>
+                <label for="taskType">🎯 دسته‌بندی فعالیت</label>
                 <select id="taskType">
-                    <option value="study">مطالعه</option>
-                    <option value="exercise">ورزش</option>
-                    <option value="work">کار</option>
-                    <option value="personal">شخصی</option>
-                    <option value="other">سایر</option>
+                    <option value="study">📚 مطالعه</option>
+                    <option value="exercise">🏋️ ورزش</option>
+                    <option value="work">💼 کار</option>
+                    <option value="personal">🌟 شخصی</option>
+                    <option value="other">🎯 سایر</option>
                 </select>
             </div>
 
             <div class="field">
-                <label for="taskDate">تاریخ (سال/ماه/روز)</label>
+                <label for="taskDate">📅 تاریخ (سال/ماه/روز)</label>
                 <input id="taskDate" type="text"
                        inputmode="numeric"
                        autocomplete="off"
@@ -407,18 +526,20 @@ footer {
             </div>
 
             <div class="field">
-                <label for="startTime">ساعت شروع</label>
+                <label for="startTime">🕒 ساعت شروع</label>
                 <input id="startTime" type="time" required>
             </div>
 
             <div class="field">
-                <label for="endTime">ساعت پایان</label>
+                <label for="endTime">🏁 ساعت پایان</label>
                 <input id="endTime" type="time" required>
             </div>
 
         </div>
 
-        <button class="primary" type="submit">ثبت فعالیت</button>
+        <button class="primary" type="submit">
+            ✨ ثبت فعالیت
+        </button>
     </form>
 </section>
 
@@ -427,7 +548,7 @@ footer {
 
     <div class="grid">
         <div class="field">
-            <label for="searchDate">تاریخ موردنظر</label>
+            <label for="searchDate">📅 تاریخ موردنظر</label>
             <input id="searchDate" type="text"
                    inputmode="numeric"
                    autocomplete="off"
@@ -436,7 +557,7 @@ footer {
         </div>
 
         <div class="field">
-            <label for="searchText">جست‌وجوی فعالیت</label>
+            <label for="searchText">🔍 جست‌وجوی فعالیت</label>
             <input id="searchText" type="search"
                    placeholder="نام فعالیت...">
         </div>
@@ -445,30 +566,34 @@ footer {
     <div class="stats">
         <div class="stat">
             <div class="number" id="totalTasks">۰</div>
-            <div class="caption">تعداد فعالیت‌ها</div>
+            <div class="caption">📋 تعداد فعالیت‌ها</div>
         </div>
 
         <div class="stat">
             <div class="number" id="doneTasks">۰</div>
-            <div class="caption">فعالیت‌های انجام‌شده</div>
+            <div class="caption">✅ فعالیت‌های انجام‌شده</div>
         </div>
 
         <div class="stat">
             <div class="number" id="studyHours">۰</div>
-            <div class="caption">ساعت مطالعه</div>
+            <div class="caption">📚 ساعت مطالعه</div>
         </div>
 
         <div class="stat">
             <div class="number" id="activityHours">۰</div>
-            <div class="caption">مجموع ساعات فعالیت</div>
+            <div class="caption">⏱ مجموع ساعات فعالیت</div>
         </div>
     </div>
 
-    <h2 style="margin-top:22px">پیشرفت روزانه</h2>
+    <h2 style="margin-top:25px">🚀 پیشرفت روزانه</h2>
+
     <div class="progress-track">
         <div class="progress-fill" id="progressFill"></div>
     </div>
-    <div class="progress-caption" id="progressText">۰٪ تکمیل شده</div>
+
+    <div class="progress-caption" id="progressText">
+        ۰٪ تکمیل شده
+    </div>
 </section>
 
 <section class="card">
@@ -482,15 +607,18 @@ footer {
 </section>
 
 <section class="card">
-    <h2>📋 سوابق فعالیت‌ها</h2>
-    <p style="font-size:12px;color:var(--muted);line-height:2">
+    <h2>🗂️ سوابق فعالیت‌ها</h2>
+
+    <p class="section-caption">
         آخرین فعالیت‌های ثبت‌شده در این مرورگر
     </p>
+
     <div id="historyList"></div>
 
     <button type="button" class="secondary"
-            id="showAllBtn" style="width:100%;margin-top:10px">
-        نمایش همه سوابق
+            id="showAllBtn"
+            style="width:100%;margin-top:15px">
+        📂 نمایش همه سوابق
     </button>
 </section>
 
@@ -508,34 +636,29 @@ const $ = id => document.getElementById(id);
 const STORAGE_KEY = "my-day-planner-v1";
 
 const categoryNames = {
-    study: "مطالعه",
-    exercise: "ورزش",
-    work: "کار",
-    personal: "شخصی",
-    other: "سایر"
+    study: "📚 مطالعه",
+    exercise: "🏋️ ورزش",
+    work: "💼 کار",
+    personal: "🌟 شخصی",
+    other: "🎯 سایر"
 };
 
 let tasks = [];
 let showAllHistory = false;
 
-/* تبدیل اعداد فارسی و عربی به انگلیسی */
 function toEnglishDigits(value) {
     return String(value)
         .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d))
         .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
 }
 
-/* نمایش اعداد انگلیسی به شکل فارسی */
 function toPersianDigits(value) {
     return String(value).replace(/[0-9]/g, d =>
         "۰۱۲۳۴۵۶۷۸۹"[Number(d)]
     );
 }
 
-/*
-  ورود تاریخ به ترتیب سال، ماه، روز.
-  مثال: ۱۴۰۵۰۷۲۵ -> ۱۴۰۵/۰۷/۲۵
-*/
+/* تاریخ: این بخش همان اسلش خودکار قبلی است */
 function setupJalaliDateInput(id) {
     const input = $(id);
 
@@ -611,7 +734,6 @@ function setupJalaliDateInput(id) {
 setupJalaliDateInput("taskDate");
 setupJalaliDateInput("searchDate");
 
-/* تبدیل تاریخ میلادی به شمسی با تقویم مرورگر */
 function gregorianToJalali(dateString) {
     const parts = dateString.split("-").map(Number);
 
@@ -650,7 +772,6 @@ function gregorianToJalali(dateString) {
     return null;
 }
 
-/* تاریخ شمسی امروز */
 function todayJalali() {
     const now = new Date();
 
@@ -695,7 +816,6 @@ function parseJalali(value) {
     return {year, month, day};
 }
 
-/* تبدیل تاریخ شمسی به میلادی */
 function jalaliToGregorian(jy, jm, jd) {
     jy += 1595;
 
@@ -936,7 +1056,7 @@ function renderTasks() {
 
     if (daily.length === 0) {
         list.innerHTML =
-            '<div class="empty">برای این روز فعالیتی پیدا نشد.</div>';
+            '<div class="empty">🗒️ برای این روز فعالیتی پیدا نشد.</div>';
         return;
     }
 
@@ -954,7 +1074,7 @@ function renderTasks() {
                     <div class="task-title">${escapeHTML(task.title)}</div>
 
                     <div class="badge">
-                        ${escapeHTML(categoryNames[task.type] || "سایر")}
+                        ${escapeHTML(categoryNames[task.type] || "🎯 سایر")}
                     </div>
 
                     <div class="task-meta">
@@ -969,7 +1089,7 @@ function renderTasks() {
                 <button class="danger delete-btn"
                         type="button"
                         data-id="${escapeHTML(task.id)}">
-                    حذف فعالیت
+                    🗑️ حذف فعالیت
                 </button>
             </div>
         </div>
@@ -992,9 +1112,6 @@ function renderWeeklyStats() {
 
     const days = [];
 
-    /*
-      هفت روز اخیر با شروع هفته از شنبه.
-    */
     const weekday = selectedGregorian.getUTCDay();
     const daysSinceSaturday = (weekday + 1) % 7;
 
@@ -1008,11 +1125,16 @@ function renderWeeklyStats() {
         const current = new Date(saturday.getTime());
         current.setUTCDate(current.getUTCDate() + i);
 
-        const date = dateKey(gregorianToJalali(
+        const gregorianString =
             current.getUTCFullYear() + "-" +
             String(current.getUTCMonth() + 1).padStart(2, "0") + "-" +
-            String(current.getUTCDate()).padStart(2, "0")
-        ));
+            String(current.getUTCDate()).padStart(2, "0");
+
+        const converted = gregorianToJalali(gregorianString);
+
+        if (!converted) continue;
+
+        const date = dateKey(converted);
 
         const minutes = tasks
             .filter(task => task.date === date && task.type === "study")
@@ -1028,8 +1150,13 @@ function renderWeeklyStats() {
 
     const total = days.reduce((sum, day) => sum + day.minutes, 0);
 
+    const labels = [
+        "شنبه", "یکشنبه", "دوشنبه",
+        "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"
+    ];
+
     container.innerHTML = `
-        <div style="margin-bottom:15px;color:var(--muted);font-size:13px">
+        <div style="margin-bottom:18px;color:var(--muted);font-size:13px;line-height:2">
             مجموع مطالعه این هفته:
             <strong style="color:var(--cyan)">
                 ${escapeHTML(formatHours(total))}
@@ -1037,13 +1164,6 @@ function renderWeeklyStats() {
         </div>
 
         ${days.map((day, index) => {
-            const parsed = parseJalali(day.date);
-
-            const labels = [
-                "شنبه", "یکشنبه", "دوشنبه",
-                "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"
-            ];
-
             const width = Math.round(day.minutes / maxMinutes * 100);
 
             return `
@@ -1076,7 +1196,7 @@ function renderHistory() {
 
     if (!shown.length) {
         container.innerHTML =
-            '<div class="empty">هنوز فعالیتی ثبت نکرده‌ای.</div>';
+            '<div class="empty">📭 هنوز فعالیتی ثبت نکرده‌ای.</div>';
         return;
     }
 
@@ -1085,7 +1205,7 @@ function renderHistory() {
             <div class="task-title">${escapeHTML(task.title)}</div>
 
             <div class="badge">
-                ${escapeHTML(categoryNames[task.type] || "سایر")}
+                ${escapeHTML(categoryNames[task.type] || "🎯 سایر")}
             </div>
 
             <div class="task-meta">
@@ -1155,7 +1275,7 @@ $("taskForm").addEventListener("submit", function (event) {
 
     renderAll();
 
-    showNotice("فعالیت با موفقیت ثبت شد.", "success");
+    showNotice("✅ فعالیت با موفقیت ثبت شد.", "success");
 });
 
 $("searchDate").addEventListener("input", renderAll);
@@ -1193,13 +1313,12 @@ $("showAllBtn").addEventListener("click", function () {
     showAllHistory = !showAllHistory;
 
     this.textContent = showAllHistory
-        ? "نمایش سوابق اخیر"
-        : "نمایش همه سوابق";
+        ? "📂 نمایش سوابق اخیر"
+        : "📂 نمایش همه سوابق";
 
     renderHistory();
 });
 
-/* راه‌اندازی سایت و نمایش تاریخ امروز */
 function initializeToday() {
     loadTasks();
 
