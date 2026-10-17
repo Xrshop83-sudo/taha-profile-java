@@ -658,6 +658,30 @@ $("searchDate").value=today;
 renderAll();
 }
 
+input.placeholder = "۱۴۰۵/۰۷/۲۵";
+input.inputMode = "numeric";
+input.maxLength = 10;
+
+input.addEventListener("input", function () {
+    let value = this.value.replace(/[۰-۹]/g, d =>
+        "۰۱۲۳۴۵۶۷۸۹".indexOf(d)
+    );
+
+    value = value.replace(/[^\d]/g, "").slice(0, 8);
+
+    if (value.length > 6) {
+        value = value.slice(0, 4) + "/" +
+                value.slice(4, 6) + "/" +
+                value.slice(6);
+    } else if (value.length > 4) {
+        value = value.slice(0, 4) + "/" +
+                value.slice(4);
+    }
+
+    this.value = value.replace(/\d/g, d =>
+        "۰۱۲۳۴۵۶۷۸۹"[Number(d)]
+    );
+});
 initializeToday();
 </script>
 </body>
