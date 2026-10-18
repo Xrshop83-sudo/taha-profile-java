@@ -46,7 +46,12 @@ h2 {font-size:18px;margin:0 0 16px}
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:12px;
 }
-label {display:block;color:var(--muted);font-size:13px;margin-bottom:7px}
+label {
+  display:block;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:7px;
+}
 input,select,button {
   width:100%;
   padding:12px;
@@ -171,6 +176,19 @@ footer {
   border-bottom:1px solid var(--border);
 }
 .week-row:last-child {border-bottom:0}
+.wake-display {
+  font-size:26px;
+  font-weight:bold;
+  color:var(--cyan);
+  margin:12px 0;
+}
+.wake-card {
+  background:#0b1a30;
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:16px;
+  text-align:center;
+}
 @media(max-width:520px) {
   body {padding:12px}
   .panel {padding:14px}
@@ -217,6 +235,43 @@ footer {
   <p class="muted" id="totalTime">مجموع زمان فعالیت‌ها: ۰ دقیقه</p>
 </section>
 
+<!-- ساعت بیداری روزانه -->
+<section class="panel">
+  <h2>⏰ ساعت بیداری روزانه</h2>
+
+  <p class="muted">
+    برای هر تاریخ یک ساعت بیداری ثبت می‌شود.
+    ساعت ثبت‌شده برای همه بازدیدکنندگان قابل مشاهده است.
+  </p>
+
+  <label for="wakeDate">تاریخ شمسی</label>
+  <input id="wakeDate" type="text"
+         inputmode="numeric" maxlength="10"
+         placeholder="۱۴۰۵/۰۷/۲۵">
+
+  <div style="height:12px"></div>
+
+  <div class="wake-card">
+    <div class="muted">ساعت بیداری این روز</div>
+    <div class="wake-display" id="wakeDisplay">ثبت نشده</div>
+    <div class="muted" id="wakeInfo">در حال دریافت اطلاعات...</div>
+  </div>
+
+  <div id="wakeAdminControls" class="hidden" style="margin-top:14px">
+    <label for="wakeTime">ثبت یا تغییر ساعت بیداری</label>
+    <input id="wakeTime" type="time" value="07:00">
+
+    <div style="height:10px"></div>
+
+    <button id="saveWakeButton" type="button">
+      ذخیره ساعت بیداری
+    </button>
+  </div>
+
+  <p class="muted" id="wakeStatus" aria-live="polite"></p>
+</section>
+
+<!-- برنامه‌های روزانه -->
 <section class="panel">
   <div class="row">
     <h2>🗓️ برنامه‌های روزانه</h2>
@@ -224,18 +279,26 @@ footer {
   </div>
 
   <label for="filterDate">انتخاب تاریخ برای مشاهده برنامه‌ها</label>
-  <input id="filterDate" type="text" inputmode="numeric"
-         placeholder="۱۴۰۵/۰۷/۲۵" maxlength="10">
+  <input id="filterDate" type="text"
+         inputmode="numeric"
+         placeholder="۱۴۰۵/۰۷/۲۵"
+         maxlength="10">
 
   <div style="height:12px"></div>
 
   <input id="search" type="search"
          placeholder="🔎 جست‌وجو بین فعالیت‌ها...">
 
-  <p class="muted" id="status">در حال اتصال به پایگاه داده...</p>
-  <div id="taskList"><div class="empty">در حال بارگذاری...</div></div>
+  <p class="muted" id="status">
+    در حال اتصال به پایگاه داده...
+  </p>
+
+  <div id="taskList">
+    <div class="empty">در حال بارگذاری...</div>
+  </div>
 </section>
 
+<!-- فرم مدیریت فعالیت‌ها -->
 <section class="panel hidden" id="adminPanel">
   <h2 id="formHeading">➕ افزودن فعالیت جدید</h2>
 
@@ -243,6 +306,7 @@ footer {
     <input type="hidden" id="editId">
 
     <div class="grid">
+
       <div class="full">
         <label for="taskTitle">عنوان فعالیت</label>
         <input id="taskTitle" required maxlength="120"
@@ -262,28 +326,36 @@ footer {
 
       <div>
         <label for="taskDate">تاریخ شمسی</label>
-        <input id="taskDate" required inputmode="numeric"
-               maxlength="10" placeholder="۱۴۰۵/۰۷/۲۵">
+        <input id="taskDate" required
+               inputmode="numeric"
+               maxlength="10"
+               placeholder="۱۴۰۵/۰۷/۲۵">
       </div>
 
       <div>
         <label for="startTime">ساعت شروع</label>
-        <input id="startTime" type="time" required value="08:00">
+        <input id="startTime" type="time"
+               required value="08:00">
       </div>
 
       <div>
         <label for="endTime">ساعت پایان</label>
-        <input id="endTime" type="time" required value="09:00">
+        <input id="endTime" type="time"
+               required value="09:00">
       </div>
 
       <div class="full">
-        <button id="saveButton" type="submit">ثبت فعالیت</button>
+        <button id="saveButton" type="submit">
+          ثبت فعالیت
+        </button>
       </div>
+
       <div class="full hidden" id="cancelEditBox">
         <button type="button" class="secondary" id="cancelEdit">
           لغو ویرایش
         </button>
       </div>
+
     </div>
   </form>
 </section>
@@ -293,36 +365,44 @@ footer {
   <div id="weeklyReport" class="muted">در حال محاسبه...</div>
 </section>
 
+<!-- ورود مدیر -->
 <section class="panel">
-  <div class="row">
-    <h2>🔐 مدیریت سایت</h2>
-  </div>
+  <h2>🔐 مدیریت سایت</h2>
 
   <p class="muted">
-    همه می‌توانند برنامه‌ها را ببینند. برای افزودن، ویرایش یا حذف فعالیت،
-    باید با حساب مدیر وارد شوی.
+    همه می‌توانند برنامه‌ها و ساعت بیداری ثبت‌شده را ببینند.
+    برای ثبت، ویرایش یا حذف باید با حساب مدیر وارد شوی.
   </p>
 
   <div id="loginBox">
     <form id="loginForm">
+
       <label for="adminEmail">ایمیل مدیر</label>
-      <input id="adminEmail" type="email" required
-             autocomplete="username" placeholder="ایمیل حساب مدیر">
+      <input id="adminEmail" type="email"
+             required autocomplete="username"
+             placeholder="ایمیل حساب مدیر">
 
       <div style="height:12px"></div>
 
       <label for="adminPassword">رمز عبور</label>
-      <input id="adminPassword" type="password" required
-             autocomplete="current-password" placeholder="رمز عبور">
+      <input id="adminPassword" type="password"
+             required autocomplete="current-password"
+             placeholder="رمز عبور">
 
       <div style="height:12px"></div>
-      <button id="loginButton" type="submit">ورود مدیر</button>
+
+      <button id="loginButton" type="submit">
+        ورود مدیر
+      </button>
+
     </form>
   </div>
 
   <div id="logoutBox" class="hidden">
     <p class="muted">وضعیت: وارد حساب مدیر شده‌ای.</p>
-    <button id="logoutButton" class="secondary">خروج از حساب مدیر</button>
+    <button id="logoutButton" class="secondary">
+      خروج از حساب مدیر
+    </button>
   </div>
 
   <p id="authMessage" class="muted" aria-live="polite"></p>
@@ -333,14 +413,15 @@ footer {
 
 <script type="module">
 import { initializeApp }
-  from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
 
 import {
   getAuth,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+}
+from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
 
 import {
   getFirestore,
@@ -350,10 +431,13 @@ import {
   updateDoc,
   doc,
   onSnapshot,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
+  serverTimestamp,
+  setDoc
+}
+from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
 
-/* تنظیمات پروژه Firebase */
+
+/* تنظیمات Firebase */
 const firebaseConfig = {
   apiKey: "AIzaSyDy8OngLwR7EIt5CGtzwfe8DE3OAa4dCe0",
   authDomain: "my-day-28973.firebaseapp.com",
@@ -364,18 +448,20 @@ const firebaseConfig = {
   measurementId: "G-5V8L1G62KW"
 };
 
-/* شناسه حساب مدیر */
+/* شناسه مدیر */
 const ADMIN_UID = "50TZy5uIDcZpArZdTEG2eHcr3lP2";
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+
 const activitiesRef = collection(db, "activities");
+const wakeTimesRef = collection(db, "wakeTimes");
 
 let currentUser = null;
 let isAdmin = false;
 let activities = [];
-let unsubscribeActivities = null;
+let wakeTimes = {};
 
 const $ = id => document.getElementById(id);
 
@@ -387,16 +473,20 @@ const categoryNames = {
   other: "🎯 سایر"
 };
 
+
+/* ابزارهای کمکی */
 function faNumber(value) {
   return Number(value).toLocaleString("fa-IR");
 }
 
 function todayJalali() {
-  const parts = new Intl.DateTimeFormat("en-US-u-ca-persian", {
-    year:"numeric", month:"2-digit", day:"2-digit"
-  }).formatToParts(new Date());
+  const parts = new Intl.DateTimeFormat(
+    "en-US-u-ca-persian",
+    {year:"numeric",month:"2-digit",day:"2-digit"}
+  ).formatToParts(new Date());
 
   const get = type => parts.find(p => p.type === type).value;
+
   return `${get("year")}/${get("month")}/${get("day")}`;
 }
 
@@ -407,26 +497,32 @@ function normalizeDate(value) {
     .replace(/\D/g, "");
 
   if (s.length === 8) {
-    s = s.slice(0,4) + "/" + s.slice(4,6) + "/" + s.slice(6,8);
+    s = s.slice(0,4) + "/" +
+        s.slice(4,6) + "/" +
+        s.slice(6,8);
   }
 
   return s;
-}
-
-function formatDateInput(input) {
-  input.value = normalizeDate(input.value);
 }
 
 function validDate(date) {
   return /^\d{4}\/\d{2}\/\d{2}$/.test(date);
 }
 
+function dateKey(date) {
+  return date.replaceAll("/", "-");
+}
+
 function minutesBetween(start, end) {
   if (!start || !end) return 0;
-  const [sh,sm] = start.split(":").map(Number);
-  const [eh,em] = end.split(":").map(Number);
+
+  const [sh, sm] = start.split(":").map(Number);
+  const [eh, em] = end.split(":").map(Number);
+
   let minutes = (eh * 60 + em) - (sh * 60 + sm);
+
   if (minutes < 0) minutes += 1440;
+
   return minutes;
 }
 
@@ -434,8 +530,12 @@ function durationText(minutes) {
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;
 
-  if (h && m) return `${faNumber(h)} ساعت و ${faNumber(m)} دقیقه`;
-  if (h) return `${faNumber(h)} ساعت`;
+  if (h && m)
+    return `${faNumber(h)} ساعت و ${faNumber(m)} دقیقه`;
+
+  if (h)
+    return `${faNumber(h)} ساعت`;
+
   return `${faNumber(m)} دقیقه`;
 }
 
@@ -453,25 +553,50 @@ function showAuthMessage(message) {
   $("authMessage").textContent = message;
 }
 
+
+/* نمایش ساعت بیداری برای تاریخ انتخاب‌شده */
+function showWake() {
+  const date = normalizeDate($("wakeDate").value);
+  const item = wakeTimes[dateKey(date)];
+
+  $("wakeDisplay").textContent = item?.time || "ثبت نشده";
+
+  $("wakeInfo").textContent = item
+    ? `تاریخ: ${date} | ساعت بیداری ثبت شده`
+    : `برای تاریخ ${date || "انتخاب‌شده"} هنوز ساعتی ثبت نشده است.`;
+
+  if (isAdmin && item?.time) {
+    $("wakeTime").value = item.time;
+  }
+}
+
+
+/* فعالیت‌های قابل نمایش */
 function visibleActivities() {
   const date = normalizeDate($("filterDate").value);
   const search = $("search").value.trim().toLowerCase();
 
   return activities
     .filter(a => !date || a.date === date)
-    .filter(a => !search || a.title.toLowerCase().includes(search))
+    .filter(a =>
+      !search ||
+      String(a.title || "").toLowerCase().includes(search)
+    )
     .sort((a,b) =>
       (a.date || "").localeCompare(b.date || "") ||
       (a.startTime || "").localeCompare(b.startTime || "")
     );
 }
 
+
+/* نمایش فعالیت‌ها */
 function renderTasks() {
   const filtered = visibleActivities();
   const list = $("taskList");
 
   if (!filtered.length) {
-    list.innerHTML = '<div class="empty">برای این تاریخ فعالیتی ثبت نشده است.</div>';
+    list.innerHTML =
+      '<div class="empty">برای این تاریخ فعالیتی ثبت نشده است.</div>';
   } else {
     list.innerHTML = filtered.map(a => {
       const minutes = minutesBetween(a.startTime, a.endTime);
@@ -479,23 +604,34 @@ function renderTasks() {
       return `
         <article class="task ${a.completed ? "completed" : ""}">
           <div class="task-title">${escapeHTML(a.title)}</div>
-          <span class="badge">${categoryNames[a.category] || categoryNames.other}</span>
+
+          <span class="badge">
+            ${categoryNames[a.category] || categoryNames.other}
+          </span>
 
           <div class="task-meta">
             📅 ${escapeHTML(a.date || "")}<br>
-            🕒 ${escapeHTML(a.startTime || "--:--")} تا ${escapeHTML(a.endTime || "--:--")}<br>
+            🕒 ${escapeHTML(a.startTime || "--:--")}
+            تا ${escapeHTML(a.endTime || "--:--")}<br>
             ⏱️ ${durationText(minutes)}
           </div>
 
           ${isAdmin ? `
             <div class="task-actions">
               <label>
-                <input type="checkbox" data-complete="${a.id}"
+                <input type="checkbox"
+                  data-complete="${a.id}"
                   ${a.completed ? "checked" : ""}>
                 انجام شد
               </label>
-              <button class="secondary" data-edit="${a.id}">ویرایش</button>
-              <button class="danger" data-delete="${a.id}">حذف</button>
+
+              <button class="secondary" data-edit="${a.id}">
+                ویرایش
+              </button>
+
+              <button class="danger" data-delete="${a.id}">
+                حذف
+              </button>
             </div>
           ` : `
             <div class="task-meta">
@@ -510,55 +646,68 @@ function renderTasks() {
   renderStats();
 }
 
+
+/* آمار روزانه */
 function renderStats() {
-  const today = normalizeDate($("filterDate").value) || todayJalali();
-  const todayItems = activities.filter(a => a.date === today);
-  const done = todayItems.filter(a => a.completed).length;
+  const today =
+    normalizeDate($("filterDate").value) || todayJalali();
 
-  const studyMinutes = todayItems
+  const items = activities.filter(a => a.date === today);
+  const done = items.filter(a => a.completed).length;
+
+  const study = items
     .filter(a => a.category === "study")
-    .reduce((sum,a) => sum + minutesBetween(a.startTime,a.endTime), 0);
+    .reduce((s,a) =>
+      s + minutesBetween(a.startTime,a.endTime), 0);
 
-  const totalMinutes = todayItems
-    .reduce((sum,a) => sum + minutesBetween(a.startTime,a.endTime), 0);
+  const total = items.reduce((s,a) =>
+    s + minutesBetween(a.startTime,a.endTime), 0);
 
-  const percent = todayItems.length
-    ? Math.round(done / todayItems.length * 100)
+  const percent = items.length
+    ? Math.round(done / items.length * 100)
     : 0;
 
   $("todayLabel").textContent = today;
-  $("totalCount").textContent = faNumber(todayItems.length);
+  $("totalCount").textContent = faNumber(items.length);
   $("doneCount").textContent = faNumber(done);
-  $("studyTime").textContent = durationText(studyMinutes);
-  $("totalTime").textContent = "مجموع زمان فعالیت‌ها: " + durationText(totalMinutes);
-  $("progressText").textContent = "پیشرفت امروز: " + faNumber(percent) + "٪";
+  $("studyTime").textContent = durationText(study);
+
+  $("totalTime").textContent =
+    "مجموع زمان فعالیت‌ها: " + durationText(total);
+
+  $("progressText").textContent =
+    "پیشرفت امروز: " + faNumber(percent) + "٪";
+
   $("progressBar").style.width = percent + "%";
 }
 
-function renderWeekly() {
-  const now = new Date();
-  const currentDate = todayJalali();
-  const items = activities.filter(a => a.category === "study");
 
-  /*
-    تاریخ شمسی به عدد تبدیل می‌شود تا روزهای اخیر مرتب شوند.
-    برای گزارش دقیق هفت روز اخیر، تاریخ میلادی هر فعالیت
-    در زمان ثبت نیز ذخیره می‌شود.
-  */
+/* گزارش هفتگی مطالعه */
+function renderWeekly() {
+  const now = Date.now();
+
+  const items = activities.filter(a =>
+    a.category === "study"
+  );
+
   const recent = items.filter(a => {
-    if (!a.createdAtMs) return a.date === currentDate;
-    return now.getTime() - a.createdAtMs <= 7 * 24 * 60 * 60 * 1000
-      && now.getTime() >= a.createdAtMs;
+    if (a.createdAtMs) {
+      return now - a.createdAtMs <= 7 * 86400000 &&
+             now >= a.createdAtMs;
+    }
+
+    return a.date === todayJalali();
   });
 
-  const total = recent.reduce((sum,a) =>
-    sum + minutesBetween(a.startTime,a.endTime), 0);
+  const total = recent.reduce((s,a) =>
+    s + minutesBetween(a.startTime,a.endTime), 0);
 
   $("weeklyReport").innerHTML = `
     <div class="week-row">
       <span>📚 فعالیت‌های مطالعه در ۷ روز اخیر</span>
       <strong>${faNumber(recent.length)}</strong>
     </div>
+
     <div class="week-row">
       <span>⏱️ مجموع زمان مطالعه</span>
       <strong>${escapeHTML(durationText(total))}</strong>
@@ -572,72 +721,165 @@ function renderAll() {
 }
 
 function updateRoleUI() {
-  $("roleBadge").textContent = isAdmin ? "مدیر سایت ✅" : "بازدیدکننده";
+  $("roleBadge").textContent =
+    isAdmin ? "مدیر سایت ✅" : "بازدیدکننده";
+
   $("adminPanel").classList.toggle("hidden", !isAdmin);
   $("loginBox").classList.toggle("hidden", isAdmin);
   $("logoutBox").classList.toggle("hidden", !isAdmin);
+  $("wakeAdminControls").classList.toggle("hidden", !isAdmin);
+
   renderAll();
+  showWake();
 }
 
+
+/* بازنشانی فرم فعالیت */
 function resetForm() {
   $("taskForm").reset();
+
   $("editId").value = "";
   $("taskDate").value = todayJalali();
   $("startTime").value = "08:00";
   $("endTime").value = "09:00";
+
   $("formHeading").textContent = "➕ افزودن فعالیت جدید";
   $("saveButton").textContent = "ثبت فعالیت";
   $("cancelEditBox").classList.add("hidden");
 }
 
+
+/* تاریخ‌های اولیه */
 $("taskDate").value = todayJalali();
 $("filterDate").value = todayJalali();
+$("wakeDate").value = todayJalali();
 
-$("taskDate").addEventListener("input", () => formatDateInput($("taskDate")));
+$("taskDate").addEventListener("input", () => {
+  $("taskDate").value = normalizeDate($("taskDate").value);
+});
+
 $("filterDate").addEventListener("input", () => {
-  formatDateInput($("filterDate"));
+  $("filterDate").value = normalizeDate($("filterDate").value);
   renderAll();
 });
+
+$("wakeDate").addEventListener("input", () => {
+  $("wakeDate").value = normalizeDate($("wakeDate").value);
+  showWake();
+});
+
+$("wakeDate").addEventListener("change", showWake);
 $("search").addEventListener("input", renderTasks);
 
+
+/* ذخیره ساعت بیداری */
+$("saveWakeButton").addEventListener("click", async () => {
+  const date = normalizeDate($("wakeDate").value);
+  const time = $("wakeTime").value;
+
+  if (!isAdmin || !currentUser ||
+      currentUser.uid !== ADMIN_UID) {
+    $("wakeStatus").textContent =
+      "برای ثبت ساعت بیداری باید مدیر وارد شده باشد.";
+    return;
+  }
+
+  if (!validDate(date) || !time) {
+    $("wakeStatus").textContent =
+      "تاریخ و ساعت بیداری را درست وارد کن.";
+    return;
+  }
+
+  $("saveWakeButton").disabled = true;
+  $("wakeStatus").textContent = "در حال ذخیره...";
+
+  try {
+    await setDoc(
+      doc(db, "wakeTimes", dateKey(date)),
+      {
+        date,
+        time,
+        updatedAt: serverTimestamp(),
+        updatedBy: currentUser.uid
+      }
+    );
+
+    $("wakeStatus").textContent =
+      "ساعت بیداری با موفقیت ذخیره شد ✅";
+
+    showWake();
+
+  } catch (error) {
+    console.error("Wake time save error:", error);
+
+    $("wakeStatus").textContent =
+      "ذخیره ساعت بیداری ناموفق بود: " +
+      (error.code || error.message || "خطای نامشخص");
+
+  } finally {
+    $("saveWakeButton").disabled = false;
+  }
+});
+
+
+/* ورود مدیر */
 $("loginForm").addEventListener("submit", async event => {
   event.preventDefault();
 
-  const email = $("adminEmail").value.trim();
-  const password = $("adminPassword").value;
   $("loginButton").disabled = true;
   showAuthMessage("در حال ورود...");
 
   try {
-    const result = await signInWithEmailAndPassword(auth,email,password);
+    const result = await signInWithEmailAndPassword(
+      auth,
+      $("adminEmail").value.trim(),
+      $("adminPassword").value
+    );
 
     if (result.user.uid !== ADMIN_UID) {
       await signOut(auth);
-      showAuthMessage("این حساب اجازه مدیریت سایت را ندارد.");
+      showAuthMessage(
+        "این حساب اجازه مدیریت سایت را ندارد."
+      );
     } else {
       showAuthMessage("ورود مدیر موفق بود.");
     }
+
   } catch (error) {
-    showAuthMessage("ورود ناموفق بود. ایمیل و رمز را بررسی کن.");
+    console.error("Login error:", error);
+
+    showAuthMessage(
+      "ورود ناموفق بود. ایمیل و رمز را بررسی کن."
+    );
+
   } finally {
     $("loginButton").disabled = false;
   }
 });
 
+
+/* خروج مدیر */
 $("logoutButton").addEventListener("click", async () => {
   try {
     await signOut(auth);
     showAuthMessage("از حساب مدیر خارج شدی.");
-  } catch {
+
+  } catch (error) {
+    console.error(error);
     showAuthMessage("خروج ناموفق بود. دوباره تلاش کن.");
   }
 });
 
+
+/* ثبت یا ویرایش فعالیت */
 $("taskForm").addEventListener("submit", async event => {
   event.preventDefault();
 
-  if (!isAdmin || !currentUser || currentUser.uid !== ADMIN_UID) {
-    showAuthMessage("برای ثبت فعالیت باید مدیر وارد شده باشد.");
+  if (!isAdmin || !currentUser ||
+      currentUser.uid !== ADMIN_UID) {
+    showAuthMessage(
+      "برای ثبت فعالیت باید مدیر وارد شده باشد."
+    );
     return;
   }
 
@@ -648,8 +890,17 @@ $("taskForm").addEventListener("submit", async event => {
   const endTime = $("endTime").value;
   const editId = $("editId").value;
 
-  if (!title || !validDate(date) || !startTime || !endTime) {
-    showAuthMessage("لطفاً عنوان، تاریخ و ساعت‌ها را درست وارد کن.");
+  if (!title || !validDate(date) ||
+      !startTime || !endTime) {
+    showAuthMessage(
+      "لطفاً عنوان، تاریخ و ساعت‌ها را درست وارد کن."
+    );
+    return;
+  }
+
+  if (!Object.prototype.hasOwnProperty.call(
+      categoryNames, category)) {
+    showAuthMessage("دسته‌بندی انتخاب‌شده معتبر نیست.");
     return;
   }
 
@@ -666,40 +917,64 @@ $("taskForm").addEventListener("submit", async event => {
   try {
     if (editId) {
       const existing = activities.find(a => a.id === editId);
-      if (!existing) throw new Error("Activity not found");
 
-      await updateDoc(doc(db,"activities",editId), payload);
+      if (!existing) {
+        throw new Error("Activity not found");
+      }
+
+      await updateDoc(
+        doc(db, "activities", editId),
+        payload
+      );
+
       showAuthMessage("فعالیت ویرایش شد.");
+
     } else {
       await addDoc(activitiesRef, {
         ...payload,
-        completed:false,
-        createdAt:serverTimestamp(),
-        createdAtMs:Date.now(),
-        createdBy:currentUser.uid
+        completed: false,
+        createdAt: serverTimestamp(),
+        createdAtMs: Date.now(),
+        createdBy: currentUser.uid
       });
+
       showAuthMessage("فعالیت با موفقیت ثبت شد.");
     }
 
     resetForm();
+
   } catch (error) {
-    console.error(error);
-    showAuthMessage("ذخیره انجام نشد. اتصال و قوانین Firebase را بررسی کن.");
+    console.error("Activity save error:", error);
+
+    showAuthMessage(
+      "ذخیره انجام نشد: " +
+      (error.code || error.message || "خطای نامشخص")
+    );
+
   } finally {
     $("saveButton").disabled = false;
   }
 });
 
+
 $("cancelEdit").addEventListener("click", resetForm);
 
+
+/* ویرایش و حذف فعالیت */
 $("taskList").addEventListener("click", async event => {
-  if (!isAdmin || !currentUser || currentUser.uid !== ADMIN_UID) return;
+  if (!isAdmin || !currentUser ||
+      currentUser.uid !== ADMIN_UID) {
+    return;
+  }
 
   const editButton = event.target.closest("[data-edit]");
   const deleteButton = event.target.closest("[data-delete]");
 
   if (editButton) {
-    const item = activities.find(a => a.id === editButton.dataset.edit);
+    const item = activities.find(
+      a => a.id === editButton.dataset.edit
+    );
+
     if (!item) return;
 
     $("editId").value = item.id;
@@ -708,42 +983,65 @@ $("taskList").addEventListener("click", async event => {
     $("taskDate").value = item.date || todayJalali();
     $("startTime").value = item.startTime || "08:00";
     $("endTime").value = item.endTime || "09:00";
+
     $("formHeading").textContent = "✏️ ویرایش فعالیت";
     $("saveButton").textContent = "ذخیره تغییرات";
     $("cancelEditBox").classList.remove("hidden");
 
-    $("adminPanel").scrollIntoView({behavior:"smooth"});
+    $("adminPanel").scrollIntoView({
+      behavior: "smooth"
+    });
   }
 
   if (deleteButton) {
-    const id = deleteButton.dataset.delete;
     if (!confirm("از حذف این فعالیت مطمئنی؟")) return;
 
     try {
-      await deleteDoc(doc(db,"activities",id));
+      await deleteDoc(
+        doc(db, "activities", deleteButton.dataset.delete)
+      );
+
       showAuthMessage("فعالیت حذف شد.");
+
     } catch (error) {
       console.error(error);
-      showAuthMessage("حذف انجام نشد. قوانین و اتصال را بررسی کن.");
+
+      showAuthMessage(
+        "حذف ناموفق بود: " +
+        (error.code || error.message || "خطای نامشخص")
+      );
     }
   }
 });
 
+
+/* تغییر وضعیت انجام فعالیت */
 $("taskList").addEventListener("change", async event => {
   const checkbox = event.target.closest("[data-complete]");
+
   if (!checkbox || !isAdmin || !currentUser ||
-      currentUser.uid !== ADMIN_UID) return;
+      currentUser.uid !== ADMIN_UID) {
+    return;
+  }
 
   try {
-    await updateDoc(doc(db,"activities",checkbox.dataset.complete), {
-      completed:checkbox.checked
-    });
+    await updateDoc(
+      doc(db, "activities", checkbox.dataset.complete),
+      {completed: checkbox.checked}
+    );
+
   } catch (error) {
     console.error(error);
-    showAuthMessage("تغییر وضعیت انجام نشد.");
+
+    showAuthMessage(
+      "تغییر وضعیت انجام نشد: " +
+      (error.code || error.message || "خطای نامشخص")
+    );
   }
 });
 
+
+/* بررسی حساب کاربری */
 onAuthStateChanged(auth, user => {
   currentUser = user;
   isAdmin = !!user && user.uid === ADMIN_UID;
@@ -756,21 +1054,55 @@ onAuthStateChanged(auth, user => {
   updateRoleUI();
 });
 
-onSnapshot(activitiesRef, snapshot => {
-  activities = snapshot.docs.map(d => ({
-    id:d.id,
-    ...d.data()
-  }));
 
-  $("status").textContent =
-    "اتصال برقرار است؛ اطلاعات به‌صورت آنلاین به‌روزرسانی می‌شوند.";
+/* دریافت زنده فعالیت‌ها */
+onSnapshot(
+  activitiesRef,
 
-  renderAll();
-}, error => {
-  console.error(error);
-  $("status").textContent =
-    "دریافت اطلاعات ناموفق بود. قوانین Firestore و اتصال را بررسی کن.";
-});
+  snapshot => {
+    activities = snapshot.docs.map(d => ({
+      id: d.id,
+      ...d.data()
+    }));
+
+    $("status").textContent =
+      "اتصال برقرار است؛ فعالیت‌ها به‌صورت آنلاین به‌روزرسانی می‌شوند.";
+
+    renderAll();
+  },
+
+  error => {
+    console.error("Activities read error:", error);
+
+    $("status").textContent =
+      "دریافت فعالیت‌ها ناموفق بود: " +
+      (error.code || error.message || "خطای نامشخص");
+  }
+);
+
+
+/* دریافت زنده ساعت‌های بیداری */
+onSnapshot(
+  wakeTimesRef,
+
+  snapshot => {
+    wakeTimes = {};
+
+    snapshot.docs.forEach(d => {
+      wakeTimes[d.id] = d.data();
+    });
+
+    showWake();
+  },
+
+  error => {
+    console.error("Wake times read error:", error);
+
+    $("wakeStatus").textContent =
+      "دریافت ساعت‌های بیداری ناموفق بود: " +
+      (error.code || error.message || "خطای نامشخص");
+  }
+);
 
 </script>
 </body>
