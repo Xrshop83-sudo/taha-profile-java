@@ -6,63 +6,6 @@
 <meta name="theme-color" content="#071225">
 <title>برنامه‌ریزی روزانه من</title>
 
-/* ===== مرتب‌سازی کادرها و رفع زوم آیفون ===== */
-
-/* جلوگیری از زوم خودکار هنگام انتخاب کادرها */
-input,
-textarea,
-select {
-    font-size: 16px !important;
-    font-family: inherit;
-}
-
-/* یکسان‌سازی کادرهای ورودی */
-input,
-textarea,
-select {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-    margin: 10px 0;
-    padding: 12px;
-    border-radius: 10px;
-}
-
-/* تنظیم کادرهای چندخطی */
-textarea {
-    min-height: 100px;
-    resize: vertical;
-}
-
-/* مرتب‌سازی دکمه‌ها */
-button {
-    box-sizing: border-box;
-    max-width: 100%;
-    font-family: inherit;
-    border-radius: 10px;
-}
-
-/* جلوگیری از بیرون‌زدگی عناصر */
-* {
-    box-sizing: border-box;
-}
-
-/* جلوگیری از بیرون‌زدگی محتوا در موبایل */
-body {
-    overflow-wrap: break-word;
-}
-
-/* تنظیم نمایش در آیفون */
-@media screen and (max-width: 600px) {
-    input,
-    textarea,
-    select {
-        font-size: 16px !important;
-        width: 100%;
-    }
-}
 <style>
 :root {
   --bg:#071225;
@@ -76,7 +19,17 @@ body {
   --green:#36d99a;
   --red:#ff657c;
 }
-* {box-sizing:border-box}
+
+/* تنظیمات عمومی و جلوگیری از به‌هم‌ریختگی */
+* {
+  box-sizing:border-box;
+}
+
+html {
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+
 body {
   margin:0;
   padding:18px;
@@ -84,11 +37,31 @@ body {
   background:linear-gradient(145deg,#071225,#0c1d36,#071225);
   color:var(--text);
   min-height:100vh;
+  overflow-wrap:break-word;
 }
-.container {max-width:850px;margin:auto}
-header {text-align:center;padding:22px 0}
-header h1 {font-size:28px;margin:8px 0;color:var(--cyan)}
-header p {color:var(--muted);line-height:1.9}
+
+.container {
+  max-width:850px;
+  margin:auto;
+  min-width:0;
+}
+
+header {
+  text-align:center;
+  padding:22px 0;
+}
+
+header h1 {
+  font-size:28px;
+  margin:8px 0;
+  color:var(--cyan);
+}
+
+header p {
+  color:var(--muted);
+  line-height:1.9;
+}
+
 .panel {
   background:rgba(16,30,53,.96);
   border:1px solid var(--border);
@@ -96,33 +69,67 @@ header p {color:var(--muted);line-height:1.9}
   padding:18px;
   margin:16px 0;
   box-shadow:0 10px 30px #0002;
+  min-width:0;
 }
-h2 {font-size:18px;margin:0 0 16px}
+
+h2 {
+  font-size:18px;
+  margin:0 0 16px;
+}
+
 .grid {
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:12px;
 }
+
+/* کادرهای ورودی مرتب و هم‌اندازه */
 label {
   display:block;
   color:var(--muted);
   font-size:13px;
   margin-bottom:7px;
 }
-input,select,button {
+
+input,
+textarea,
+select,
+button {
+  display:block;
   width:100%;
+  max-width:100%;
+  min-width:0;
+  box-sizing:border-box;
+  margin:10px 0;
   padding:12px;
   border-radius:11px;
   border:1px solid var(--border);
   font-family:inherit;
-  font-size:14px;
+
+  /* جلوگیری از زوم خودکار آیفون */
+  font-size:16px !important;
 }
-input,select {
+
+input,
+textarea,
+select {
   color:var(--text);
   background:#09172b;
   outline:none;
 }
-input:focus,select:focus {border-color:var(--blue)}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color:var(--blue);
+}
+
+textarea {
+  min-height:100px;
+  resize:vertical;
+}
+
+/* دکمه‌ها */
 button {
   cursor:pointer;
   background:var(--blue);
@@ -130,29 +137,55 @@ button {
   border:0;
   font-weight:bold;
 }
-button:disabled {opacity:.5;cursor:wait}
-button.secondary {background:#203653}
-button.danger {background:#713044}
-button.success {background:#137c61}
-.full {grid-column:1/-1}
+
+button:disabled {
+  opacity:.5;
+  cursor:wait;
+}
+
+button.secondary {
+  background:#203653;
+}
+
+button.danger {
+  background:#713044;
+}
+
+button.success {
+  background:#137c61;
+}
+
+.full {
+  grid-column:1/-1;
+}
+
+/* آمار روزانه */
 .stats {
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:10px;
 }
+
 .stat {
   text-align:center;
   background:var(--panel2);
   padding:15px 5px;
   border-radius:13px;
+  min-width:0;
 }
+
 .stat strong {
   display:block;
   color:var(--cyan);
   font-size:22px;
   margin-bottom:8px;
 }
-.stat span {font-size:12px;color:var(--muted)}
+
+.stat span {
+  font-size:12px;
+  color:var(--muted);
+}
+
 .progress {
   background:#263a57;
   height:10px;
@@ -160,34 +193,57 @@ button.success {background:#137c61}
   overflow:hidden;
   margin-top:12px;
 }
+
 .progress div {
   height:100%;
   width:0;
   background:linear-gradient(90deg,var(--blue),var(--cyan));
   transition:width .3s;
 }
+
+/* ردیف‌ها */
 .row {
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:12px;
+  min-width:0;
 }
+
+.row h2 {
+  min-width:0;
+}
+
+/* فعالیت‌ها */
 .task {
   background:#0b1a30;
   border:1px solid var(--border);
   border-radius:13px;
   padding:14px;
   margin-top:12px;
+  min-width:0;
 }
-.task.completed {opacity:.65}
-.task.completed .task-title {text-decoration:line-through}
-.task-title {font-weight:bold;overflow-wrap:anywhere}
+
+.task.completed {
+  opacity:.65;
+}
+
+.task.completed .task-title {
+  text-decoration:line-through;
+}
+
+.task-title {
+  font-weight:bold;
+  overflow-wrap:anywhere;
+}
+
 .task-meta {
   color:var(--muted);
   font-size:12px;
   line-height:2;
   margin-top:7px;
 }
+
 .badge {
   display:inline-block;
   background:#203653;
@@ -197,34 +253,66 @@ button.success {background:#137c61}
   font-size:12px;
   margin-top:7px;
 }
+
 .task-actions {
   display:flex;
   align-items:center;
+  flex-wrap:wrap;
   gap:7px;
   margin-top:12px;
 }
-.task-actions button {padding:9px;font-size:12px}
+
+.task-actions button {
+  width:auto;
+  flex:1 1 75px;
+  padding:9px;
+  font-size:12px !important;
+}
+
 .task-actions label {
   display:flex;
   align-items:center;
   gap:6px;
   margin:0;
 }
-.task-actions input {width:18px;height:18px}
-.muted {color:var(--muted);font-size:13px;line-height:1.9}
+
+.task-actions input {
+  width:18px;
+  height:18px;
+  margin:0;
+  padding:0;
+}
+
+.muted {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.9;
+}
+
 .empty {
   color:var(--muted);
   text-align:center;
   padding:24px 5px;
 }
+
 footer {
   text-align:center;
   color:var(--muted);
   font-size:12px;
   padding:25px 0;
 }
-.hidden {display:none!important}
-#status {font-size:12px;color:var(--muted);line-height:1.9}
+
+.hidden {
+  display:none!important;
+}
+
+#status {
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.9;
+}
+
+/* گزارش هفتگی */
 .week-row {
   display:flex;
   justify-content:space-between;
@@ -232,13 +320,19 @@ footer {
   padding:11px 0;
   border-bottom:1px solid var(--border);
 }
-.week-row:last-child {border-bottom:0}
+
+.week-row:last-child {
+  border-bottom:0;
+}
+
+/* ساعت بیداری */
 .wake-display {
   font-size:26px;
   font-weight:bold;
   color:var(--cyan);
   margin:12px 0;
 }
+
 .wake-card {
   background:#0b1a30;
   border:1px solid var(--border);
@@ -246,13 +340,44 @@ footer {
   padding:16px;
   text-align:center;
 }
+
+/* نمایش مناسب در آیفون */
 @media(max-width:520px) {
-  body {padding:12px}
-  .panel {padding:14px}
-  .grid {grid-template-columns:1fr}
-  .stats {grid-template-columns:repeat(3,minmax(0,1fr))}
-  .stat strong {font-size:18px}
-  header h1 {font-size:24px}
+  body {
+    padding:12px;
+  }
+
+  .panel {
+    padding:14px;
+  }
+
+  .grid {
+    grid-template-columns:1fr;
+  }
+
+  .stats {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+
+  .stat strong {
+    font-size:18px;
+  }
+
+  header h1 {
+    font-size:24px;
+  }
+
+  .row {
+    align-items:flex-start;
+  }
+
+  input,
+  textarea,
+  select {
+    width:100%;
+    max-width:100%;
+    font-size:16px !important;
+  }
 }
 </style>
 </head>
@@ -266,6 +391,7 @@ footer {
   <p>هر روز یک قدم به هدف‌هات نزدیک‌تر شو ✨</p>
 </header>
 
+<!-- آمار روزانه -->
 <section class="panel">
   <div class="row">
     <h2>📊 آمار روزانه</h2>
@@ -277,10 +403,12 @@ footer {
       <strong id="totalCount">۰</strong>
       <span>کل فعالیت‌ها</span>
     </div>
+
     <div class="stat">
       <strong id="doneCount">۰</strong>
       <span>انجام‌شده</span>
     </div>
+
     <div class="stat">
       <strong id="studyTime">۰</strong>
       <span>زمان مطالعه</span>
@@ -288,11 +416,17 @@ footer {
   </div>
 
   <p class="muted" id="progressText">پیشرفت امروز: ۰٪</p>
-  <div class="progress"><div id="progressBar"></div></div>
-  <p class="muted" id="totalTime">مجموع زمان فعالیت‌ها: ۰ دقیقه</p>
+
+  <div class="progress">
+    <div id="progressBar"></div>
+  </div>
+
+  <p class="muted" id="totalTime">
+    مجموع زمان فعالیت‌ها: ۰ دقیقه
+  </p>
 </section>
 
-<!-- ساعت بیداری روزانه -->
+<!-- ساعت بیداری -->
 <section class="panel">
   <h2>⏰ ساعت بیداری روزانه</h2>
 
@@ -302,20 +436,32 @@ footer {
   </p>
 
   <label for="wakeDate">تاریخ شمسی</label>
-  <input id="wakeDate" type="text"
-         inputmode="numeric" maxlength="10"
-         placeholder="۱۴۰۵/۰۷/۲۵">
+
+  <input
+    id="wakeDate"
+    type="text"
+    inputmode="numeric"
+    maxlength="10"
+    placeholder="۱۴۰۵/۰۷/۲۵"
+  >
 
   <div style="height:12px"></div>
 
   <div class="wake-card">
     <div class="muted">ساعت بیداری این روز</div>
-    <div class="wake-display" id="wakeDisplay">ثبت نشده</div>
-    <div class="muted" id="wakeInfo">در حال دریافت اطلاعات...</div>
+
+    <div class="wake-display" id="wakeDisplay">
+      ثبت نشده
+    </div>
+
+    <div class="muted" id="wakeInfo">
+      در حال دریافت اطلاعات...
+    </div>
   </div>
 
   <div id="wakeAdminControls" class="hidden" style="margin-top:14px">
     <label for="wakeTime">ثبت یا تغییر ساعت بیداری</label>
+
     <input id="wakeTime" type="time" value="07:00">
 
     <div style="height:10px"></div>
@@ -335,16 +481,25 @@ footer {
     <span class="badge" id="roleBadge">بازدیدکننده</span>
   </div>
 
-  <label for="filterDate">انتخاب تاریخ برای مشاهده برنامه‌ها</label>
-  <input id="filterDate" type="text"
-         inputmode="numeric"
-         placeholder="۱۴۰۵/۰۷/۲۵"
-         maxlength="10">
+  <label for="filterDate">
+    انتخاب تاریخ برای مشاهده برنامه‌ها
+  </label>
+
+  <input
+    id="filterDate"
+    type="text"
+    inputmode="numeric"
+    placeholder="۱۴۰۵/۰۷/۲۵"
+    maxlength="10"
+  >
 
   <div style="height:12px"></div>
 
-  <input id="search" type="search"
-         placeholder="🔎 جست‌وجو بین فعالیت‌ها...">
+  <input
+    id="search"
+    type="search"
+    placeholder="🔎 جست‌وجو بین فعالیت‌ها..."
+  >
 
   <p class="muted" id="status">
     در حال اتصال به پایگاه داده...
@@ -366,12 +521,18 @@ footer {
 
       <div class="full">
         <label for="taskTitle">عنوان فعالیت</label>
-        <input id="taskTitle" required maxlength="120"
-               placeholder="مثلاً مطالعه فصل اول فیزیک">
+
+        <input
+          id="taskTitle"
+          required
+          maxlength="120"
+          placeholder="مثلاً مطالعه فصل اول فیزیک"
+        >
       </div>
 
       <div>
         <label for="category">دسته‌بندی</label>
+
         <select id="category">
           <option value="study">📚 مطالعه</option>
           <option value="exercise">🏋️ ورزش</option>
@@ -383,22 +544,24 @@ footer {
 
       <div>
         <label for="taskDate">تاریخ شمسی</label>
-        <input id="taskDate" required
-               inputmode="numeric"
-               maxlength="10"
-               placeholder="۱۴۰۵/۰۷/۲۵">
+
+        <input
+          id="taskDate"
+          required
+          inputmode="numeric"
+          maxlength="10"
+          placeholder="۱۴۰۵/۰۷/۲۵"
+        >
       </div>
 
       <div>
         <label for="startTime">ساعت شروع</label>
-        <input id="startTime" type="time"
-               required value="08:00">
+        <input id="startTime" type="time" required value="08:00">
       </div>
 
       <div>
         <label for="endTime">ساعت پایان</label>
-        <input id="endTime" type="time"
-               required value="09:00">
+        <input id="endTime" type="time" required value="09:00">
       </div>
 
       <div class="full">
@@ -417,6 +580,7 @@ footer {
   </form>
 </section>
 
+<!-- گزارش هفتگی -->
 <section class="panel">
   <h2>📈 گزارش هفتگی مطالعه</h2>
   <div id="weeklyReport" class="muted">در حال محاسبه...</div>
@@ -435,16 +599,26 @@ footer {
     <form id="loginForm">
 
       <label for="adminEmail">ایمیل مدیر</label>
-      <input id="adminEmail" type="email"
-             required autocomplete="username"
-             placeholder="ایمیل حساب مدیر">
+
+      <input
+        id="adminEmail"
+        type="email"
+        required
+        autocomplete="username"
+        placeholder="ایمیل حساب مدیر"
+      >
 
       <div style="height:12px"></div>
 
       <label for="adminPassword">رمز عبور</label>
-      <input id="adminPassword" type="password"
-             required autocomplete="current-password"
-             placeholder="رمز عبور">
+
+      <input
+        id="adminPassword"
+        type="password"
+        required
+        autocomplete="current-password"
+        placeholder="رمز عبور"
+      >
 
       <div style="height:12px"></div>
 
@@ -457,6 +631,7 @@ footer {
 
   <div id="logoutBox" class="hidden">
     <p class="muted">وضعیت: وارد حساب مدیر شده‌ای.</p>
+
     <button id="logoutButton" class="secondary">
       خروج از حساب مدیر
     </button>
@@ -466,19 +641,20 @@ footer {
 </section>
 
 <footer>سازنده : توسط طاها مهدی نژاد</footer>
+
 </div>
 
 <script type="module">
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
 
 import {
   getAuth,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
 
 import {
   getFirestore,
@@ -490,9 +666,7 @@ import {
   onSnapshot,
   serverTimestamp,
   setDoc
-}
-from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
-
+} from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
 
 /* تنظیمات Firebase */
 const firebaseConfig = {
@@ -530,7 +704,6 @@ const categoryNames = {
   other: "🎯 سایر"
 };
 
-
 /* ابزارهای کمکی */
 function faNumber(value) {
   return Number(value).toLocaleString("fa-IR");
@@ -539,7 +712,11 @@ function faNumber(value) {
 function todayJalali() {
   const parts = new Intl.DateTimeFormat(
     "en-US-u-ca-persian",
-    {year:"numeric",month:"2-digit",day:"2-digit"}
+    {
+      year:"numeric",
+      month:"2-digit",
+      day:"2-digit"
+    }
   ).formatToParts(new Date());
 
   const get = type => parts.find(p => p.type === type).value;
@@ -587,11 +764,13 @@ function durationText(minutes) {
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;
 
-  if (h && m)
+  if (h && m) {
     return `${faNumber(h)} ساعت و ${faNumber(m)} دقیقه`;
+  }
 
-  if (h)
+  if (h) {
     return `${faNumber(h)} ساعت`;
+  }
 
   return `${faNumber(m)} دقیقه`;
 }
@@ -610,11 +789,13 @@ function showAuthMessage(message) {
   $("authMessage").textContent = message;
 }
 
-
-/* نمایش ساعت بیداری برای تاریخ انتخاب‌شده */
+/* نمایش ساعت بیداری */
 function showWake() {
   const date = normalizeDate($("wakeDate").value);
-  const item = wakeTimes[dateKey(date)];
+
+  const item = validDate(date)
+    ? wakeTimes[dateKey(date)]
+    : null;
 
   $("wakeDisplay").textContent = item?.time || "ثبت نشده";
 
@@ -626,7 +807,6 @@ function showWake() {
     $("wakeTime").value = item.time;
   }
 }
-
 
 /* فعالیت‌های قابل نمایش */
 function visibleActivities() {
@@ -644,7 +824,6 @@ function visibleActivities() {
       (a.startTime || "").localeCompare(b.startTime || "")
     );
 }
-
 
 /* نمایش فعالیت‌ها */
 function renderTasks() {
@@ -682,11 +861,11 @@ function renderTasks() {
                 انجام شد
               </label>
 
-              <button class="secondary" data-edit="${a.id}">
+              <button type="button" class="secondary" data-edit="${a.id}">
                 ویرایش
               </button>
 
-              <button class="danger" data-delete="${a.id}">
+              <button type="button" class="danger" data-delete="${a.id}">
                 حذف
               </button>
             </div>
@@ -702,7 +881,6 @@ function renderTasks() {
 
   renderStats();
 }
-
 
 /* آمار روزانه */
 function renderStats() {
@@ -737,7 +915,6 @@ function renderStats() {
 
   $("progressBar").style.width = percent + "%";
 }
-
 
 /* گزارش هفتگی مطالعه */
 function renderWeekly() {
@@ -790,7 +967,6 @@ function updateRoleUI() {
   showWake();
 }
 
-
 /* بازنشانی فرم فعالیت */
 function resetForm() {
   $("taskForm").reset();
@@ -805,8 +981,7 @@ function resetForm() {
   $("cancelEditBox").classList.add("hidden");
 }
 
-
-/* تاریخ‌های اولیه */
+/* مقداردهی تاریخ‌ها */
 $("taskDate").value = todayJalali();
 $("filterDate").value = todayJalali();
 $("wakeDate").value = todayJalali();
@@ -827,7 +1002,6 @@ $("wakeDate").addEventListener("input", () => {
 
 $("wakeDate").addEventListener("change", showWake);
 $("search").addEventListener("input", renderTasks);
-
 
 /* ذخیره ساعت بیداری */
 $("saveWakeButton").addEventListener("click", async () => {
@@ -878,7 +1052,6 @@ $("saveWakeButton").addEventListener("click", async () => {
   }
 });
 
-
 /* ورود مدیر */
 $("loginForm").addEventListener("submit", async event => {
   event.preventDefault();
@@ -895,6 +1068,7 @@ $("loginForm").addEventListener("submit", async event => {
 
     if (result.user.uid !== ADMIN_UID) {
       await signOut(auth);
+
       showAuthMessage(
         "این حساب اجازه مدیریت سایت را ندارد."
       );
@@ -906,14 +1080,14 @@ $("loginForm").addEventListener("submit", async event => {
     console.error("Login error:", error);
 
     showAuthMessage(
-      "ورود ناموفق بود. ایمیل و رمز را بررسی کن."
+      "ورود ناموفق بود. ایمیل و رمز را بررسی کن. (" +
+      (error.code || "خطای نامشخص") + ")"
     );
 
   } finally {
     $("loginButton").disabled = false;
   }
 });
-
 
 /* خروج مدیر */
 $("logoutButton").addEventListener("click", async () => {
@@ -923,10 +1097,12 @@ $("logoutButton").addEventListener("click", async () => {
 
   } catch (error) {
     console.error(error);
-    showAuthMessage("خروج ناموفق بود. دوباره تلاش کن.");
+
+    showAuthMessage(
+      "خروج ناموفق بود. دوباره تلاش کن."
+    );
   }
 });
-
 
 /* ثبت یا ویرایش فعالیت */
 $("taskForm").addEventListener("submit", async event => {
@@ -971,12 +1147,18 @@ $("taskForm").addEventListener("submit", async event => {
 
   $("saveButton").disabled = true;
 
+  showAuthMessage(
+    editId ? "در حال ذخیره تغییرات..." : "در حال ثبت فعالیت..."
+  );
+
   try {
     if (editId) {
       const existing = activities.find(a => a.id === editId);
 
       if (!existing) {
-        throw new Error("Activity not found");
+        throw new Error(
+          "فعالیت پیدا نشد؛ فهرست را تازه‌سازی کن."
+        );
       }
 
       await updateDoc(
@@ -1013,9 +1195,7 @@ $("taskForm").addEventListener("submit", async event => {
   }
 });
 
-
 $("cancelEdit").addEventListener("click", resetForm);
-
 
 /* ویرایش و حذف فعالیت */
 $("taskList").addEventListener("click", async event => {
@@ -1071,7 +1251,6 @@ $("taskList").addEventListener("click", async event => {
   }
 });
 
-
 /* تغییر وضعیت انجام فعالیت */
 $("taskList").addEventListener("change", async event => {
   const checkbox = event.target.closest("[data-complete]");
@@ -1097,7 +1276,6 @@ $("taskList").addEventListener("change", async event => {
   }
 });
 
-
 /* بررسی حساب کاربری */
 onAuthStateChanged(auth, user => {
   currentUser = user;
@@ -1110,7 +1288,6 @@ onAuthStateChanged(auth, user => {
 
   updateRoleUI();
 });
-
 
 /* دریافت زنده فعالیت‌ها */
 onSnapshot(
@@ -1137,7 +1314,6 @@ onSnapshot(
   }
 );
 
-
 /* دریافت زنده ساعت‌های بیداری */
 onSnapshot(
   wakeTimesRef,
@@ -1160,7 +1336,6 @@ onSnapshot(
       (error.code || error.message || "خطای نامشخص");
   }
 );
-
 </script>
 </body>
 </html>
