@@ -2,482 +2,182 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#071225">
 <title>برنامه‌ریزی روزانه من</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
-
 :root {
-    --bg: #071225;
-    --panel: #101e35;
-    --panel2: #142641;
-    --blue: #3995ff;
-    --cyan: #4de0f5;
-    --text: #f1f6ff;
-    --muted: #9eafc9;
-    --border: #263a57;
-    --green: #36d99a;
-    --red: #ff657c;
+  --bg:#071225;
+  --panel:#101e35;
+  --panel2:#142641;
+  --blue:#3995ff;
+  --cyan:#4de0f5;
+  --text:#f1f6ff;
+  --muted:#9eafc9;
+  --border:#263a57;
+  --green:#36d99a;
+  --red:#ff657c;
 }
-
+* {box-sizing:border-box}
 body {
-    margin: 0;
-    padding: 18px;
-    font-family: Tahoma, Arial, sans-serif;
-    background: linear-gradient(145deg, #071225, #0b1830, #071225);
-    color: var(--text);
-    min-height: 100vh;
+  margin:0;
+  padding:18px;
+  font-family:Tahoma,Arial,sans-serif;
+  background:linear-gradient(145deg,#071225,#0c1d36,#071225);
+  color:var(--text);
+  min-height:100vh;
 }
-
-.container {
-    max-width: 850px;
-    margin: auto;
+.container {max-width:850px;margin:auto}
+header {text-align:center;padding:22px 0}
+header h1 {font-size:28px;margin:8px 0;color:var(--cyan)}
+header p {color:var(--muted);line-height:1.9}
+.panel {
+  background:rgba(16,30,53,.96);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px;
+  margin:16px 0;
+  box-shadow:0 10px 30px #0002;
 }
-
-header {
-    text-align: center;
-    padding: 25px 12px 28px;
-}
-
-header h1 {
-    font-size: 27px;
-    margin: 0 0 12px;
-    color: var(--cyan);
-    letter-spacing: -.5px;
-}
-
-header p {
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 2;
-    margin: 0;
-}
-
-.card {
-    background: linear-gradient(145deg, #101e35, #0d1a30);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 22px;
-    margin-bottom: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.16);
-}
-
-h2 {
-    font-size: 17px;
-    margin: 0 0 22px;
-    color: var(--cyan);
-    display: flex;
-    align-items: center;
-    gap: 9px;
-}
-
-label {
-    display: block;
-    font-size: 12px;
-    color: #b3c5df;
-    margin: 0 0 9px;
-    font-weight: bold;
-}
-
-input, select, button {
-    font-family: inherit;
-    font-size: 14px;
-}
-
-input, select {
-    display: block;
-    width: 100%;
-    min-width: 0;
-    height: 48px;
-    background: #09172b;
-    color: var(--text);
-    border: 1px solid #2a405f;
-    border-radius: 12px;
-    padding: 10px 12px;
-    outline: none;
-    transition: border-color .2s, box-shadow .2s, background .2s;
-}
-
-input:focus, select:focus {
-    border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(57,149,255,.12);
-    background: #0b1b32;
-}
-
-input::placeholder {
-    color: #7186a5;
-    font-size: 12px;
-}
-
-select {
-    cursor: pointer;
-}
-
+h2 {font-size:18px;margin:0 0 16px}
 .grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px 15px;
-    margin-bottom: 20px;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
 }
-
-.field {
-    min-width: 0;
+label {display:block;color:var(--muted);font-size:13px;margin-bottom:7px}
+input,select,button {
+  width:100%;
+  padding:12px;
+  border-radius:11px;
+  border:1px solid var(--border);
+  font-family:inherit;
+  font-size:14px;
 }
-
-.full {
-    grid-column: 1 / -1;
+input,select {
+  color:var(--text);
+  background:#09172b;
+  outline:none;
 }
-
-.primary {
-    display: block;
-    width: 100%;
-    min-height: 49px;
-    background: linear-gradient(100deg, #2879ee, #536bff);
-    color: white;
-    border: 1px solid rgba(255,255,255,.1);
-    border-radius: 13px;
-    padding: 14px;
-    cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0 6px 18px rgba(45,120,255,.16);
-    transition: transform .2s, filter .2s;
-}
-
-.primary:active {
-    transform: scale(.985);
-    filter: brightness(1.1);
-}
-
-.secondary {
-    background: #1b3352;
-    color: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-}
-
-.danger {
-    background: #482334;
-    color: #ffb4c0;
-    border: 1px solid #673448;
-    border-radius: 10px;
-}
-
+input:focus,select:focus {border-color:var(--blue)}
 button {
-    padding: 12px 15px;
-    cursor: pointer;
-    font-weight: bold;
+  cursor:pointer;
+  background:var(--blue);
+  color:white;
+  border:0;
+  font-weight:bold;
 }
-
+button:disabled {opacity:.5;cursor:wait}
+button.secondary {background:#203653}
+button.danger {background:#713044}
+button.success {background:#137c61}
+.full {grid-column:1/-1}
 .stats {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 13px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
 }
-
 .stat {
-    background: linear-gradient(145deg, #142641, #102038);
-    border: 1px solid #293f5d;
-    padding: 19px 10px;
-    text-align: center;
-    border-radius: 16px;
-    min-width: 0;
+  text-align:center;
+  background:var(--panel2);
+  padding:15px 5px;
+  border-radius:13px;
 }
-
-.stat .number {
-    color: var(--cyan);
-    font-size: 21px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    overflow-wrap: anywhere;
+.stat strong {
+  display:block;
+  color:var(--cyan);
+  font-size:22px;
+  margin-bottom:8px;
 }
-
-.stat .caption {
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.8;
+.stat span {font-size:12px;color:var(--muted)}
+.progress {
+  background:#263a57;
+  height:10px;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:12px;
 }
-
-.progress-track {
-    width: 100%;
-    height: 12px;
-    background: #26354c;
-    border-radius: 20px;
-    overflow: hidden;
-    margin: 15px 0 10px;
+.progress div {
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,var(--blue),var(--cyan));
+  transition:width .3s;
 }
-
-.progress-fill {
-    width: 0%;
-    height: 100%;
-    background: linear-gradient(90deg, var(--blue), var(--cyan));
-    border-radius: 20px;
-    transition: width .3s;
+.row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
 }
-
-.progress-caption {
-    color: var(--muted);
-    font-size: 12px;
-    text-align: left;
-}
-
 .task {
-    background: #0b1a30;
-    border: 1px solid #293d59;
-    border-radius: 15px;
-    padding: 16px;
-    margin-bottom: 12px;
-    transition: border-color .2s, background .2s;
+  background:#0b1a30;
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:14px;
+  margin-top:12px;
 }
-
-.task:last-child {
-    margin-bottom: 0;
-}
-
-.task.done {
-    border-color: #246b5b;
-    background: #0b211f;
-    opacity: .82;
-}
-
-.task.done .task-title {
-    text-decoration: line-through;
-}
-
-.task-top {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-}
-
-.task-check {
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
-    margin-top: 2px;
-    accent-color: var(--green);
-}
-
-.task-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.task-title {
-    font-size: 15px;
-    font-weight: bold;
-    line-height: 1.9;
-    overflow-wrap: anywhere;
-}
-
+.task.completed {opacity:.65}
+.task.completed .task-title {text-decoration:line-through}
+.task-title {font-weight:bold;overflow-wrap:anywhere}
 .task-meta {
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 2.2;
-    margin-top: 9px;
-    overflow-wrap: anywhere;
+  color:var(--muted);
+  font-size:12px;
+  line-height:2;
+  margin-top:7px;
 }
-
 .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    padding: 7px 10px;
-    border-radius: 9px;
-    background: #19385b;
-    color: #b6dcff;
-    margin-top: 9px;
-    border: 1px solid #274b70;
+  display:inline-block;
+  background:#203653;
+  color:var(--cyan);
+  border-radius:8px;
+  padding:5px 8px;
+  font-size:12px;
+  margin-top:7px;
 }
-
 .task-actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 13px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-top:12px;
 }
-
-.task-actions button {
-    font-size: 12px;
-    padding: 9px 13px;
+.task-actions button {padding:9px;font-size:12px}
+.task-actions label {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin:0;
 }
-
+.task-actions input {width:18px;height:18px}
+.muted {color:var(--muted);font-size:13px;line-height:1.9}
 .empty {
-    text-align: center;
-    color: var(--muted);
-    padding: 27px 12px;
-    font-size: 13px;
-    line-height: 2;
-    background: #0b1a30;
-    border: 1px dashed #304560;
-    border-radius: 13px;
+  color:var(--muted);
+  text-align:center;
+  padding:24px 5px;
 }
-
-.bar-row {
-    display: grid;
-    grid-template-columns: 80px minmax(0, 1fr) 75px;
-    gap: 10px;
-    align-items: center;
-    margin: 18px 0;
-    font-size: 12px;
-}
-
-.bar-track {
-    background: #26354c;
-    height: 11px;
-    border-radius: 20px;
-    overflow: hidden;
-}
-
-.bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--blue), var(--cyan));
-    border-radius: 20px;
-    transition: width .3s;
-}
-
-.bar-value {
-    color: var(--muted);
-    text-align: left;
-    white-space: nowrap;
-}
-
 footer {
-    text-align: center;
-    color: #91a5c2;
-    padding: 25px 5px 12px;
-    font-size: 12px;
-    line-height: 2;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  padding:25px 0;
 }
-
-.notice {
-    display: none;
-    padding: 13px 15px;
-    border-radius: 12px;
-    margin-bottom: 16px;
-    font-size: 13px;
-    line-height: 1.9;
+.hidden {display:none!important}
+#status {font-size:12px;color:var(--muted);line-height:1.9}
+.week-row {
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:11px 0;
+  border-bottom:1px solid var(--border);
 }
-
-.notice.show {
-    display: block;
-}
-
-.notice.error {
-    color: #ffc1ca;
-    background: #40202c;
-    border: 1px solid #663144;
-}
-
-.notice.success {
-    color: #a8f4d5;
-    background: #12372f;
-    border: 1px solid #246b5b;
-}
-
-.section-caption {
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 2;
-    margin: -9px 0 18px;
-}
-
-@media (max-width: 480px) {
-    body {
-        padding: 11px;
-    }
-
-    header {
-        padding: 22px 8px 24px;
-    }
-
-    header h1 {
-        font-size: 23px;
-    }
-
-    .card {
-        padding: 16px;
-        border-radius: 17px;
-        margin-bottom: 15px;
-    }
-
-    h2 {
-        font-size: 16px;
-        margin-bottom: 19px;
-    }
-
-    .grid {
-        gap: 15px 10px;
-        margin-bottom: 17px;
-    }
-
-    input, select {
-        height: 46px;
-        padding: 9px;
-        font-size: 13px;
-    }
-
-    input::placeholder {
-        font-size: 11px;
-    }
-
-    label {
-        font-size: 11px;
-        line-height: 1.8;
-    }
-
-    .stats {
-        gap: 10px;
-    }
-
-    .stat {
-        padding: 16px 7px;
-        border-radius: 13px;
-    }
-
-    .stat .number {
-        font-size: 19px;
-    }
-
-    .stat .caption {
-        font-size: 11px;
-    }
-
-    .task {
-        padding: 13px;
-    }
-
-    .bar-row {
-        grid-template-columns: 65px minmax(0, 1fr) 68px;
-        gap: 7px;
-        font-size: 11px;
-    }
-}
-
-@media (max-width: 350px) {
-    body {
-        padding: 8px;
-    }
-
-    .card {
-        padding: 12px;
-    }
-
-    .grid {
-        gap: 13px 8px;
-    }
-
-    input, select {
-        padding: 7px;
-        font-size: 12px;
-    }
-
-    .stat .number {
-        font-size: 17px;
-    }
+.week-row:last-child {border-bottom:0}
+@media(max-width:520px) {
+  body {padding:12px}
+  .panel {padding:14px}
+  .grid {grid-template-columns:1fr}
+  .stats {grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stat strong {font-size:18px}
+  header h1 {font-size:24px}
 }
 </style>
 </head>
@@ -486,852 +186,592 @@ footer {
 <div class="container">
 
 <header>
-    <h1>برنامه‌ریزی روزانه من</h1>
-    <p>هر روز یک قدم به هدف‌هات نزدیک‌تر شو 🚀</p>
+  <div style="font-size:36px">📅</div>
+  <h1>برنامه‌ریزی روزانه من</h1>
+  <p>هر روز یک قدم به هدف‌هات نزدیک‌تر شو ✨</p>
 </header>
 
-<div id="notice" class="notice"></div>
+<section class="panel">
+  <div class="row">
+    <h2>📊 آمار روزانه</h2>
+    <span id="todayLabel" class="badge"></span>
+  </div>
 
-<section class="card">
-    <h2>➕ ثبت فعالیت جدید</h2>
+  <div class="stats">
+    <div class="stat">
+      <strong id="totalCount">۰</strong>
+      <span>کل فعالیت‌ها</span>
+    </div>
+    <div class="stat">
+      <strong id="doneCount">۰</strong>
+      <span>انجام‌شده</span>
+    </div>
+    <div class="stat">
+      <strong id="studyTime">۰</strong>
+      <span>زمان مطالعه</span>
+    </div>
+  </div>
 
-    <form id="taskForm">
-        <div class="grid">
-
-            <div class="field full">
-                <label for="taskTitle">📝 عنوان فعالیت</label>
-                <input id="taskTitle" type="text"
-                       placeholder="مثلاً مطالعه فصل اول فیزیک"
-                       maxlength="120" required>
-            </div>
-
-            <div class="field">
-                <label for="taskType">🎯 دسته‌بندی فعالیت</label>
-                <select id="taskType">
-                    <option value="study">📚 مطالعه</option>
-                    <option value="exercise">🏋️ ورزش</option>
-                    <option value="work">💼 کار</option>
-                    <option value="personal">🌟 شخصی</option>
-                    <option value="other">🎯 سایر</option>
-                </select>
-            </div>
-
-            <div class="field">
-                <label for="taskDate">📅 تاریخ (سال/ماه/روز)</label>
-                <input id="taskDate" type="text"
-                       inputmode="numeric"
-                       autocomplete="off"
-                       placeholder="۱۴۰۵/۰۷/۲۵"
-                       maxlength="10" required>
-            </div>
-
-            <div class="field">
-                <label for="startTime">🕒 ساعت شروع</label>
-                <input id="startTime" type="time" required>
-            </div>
-
-            <div class="field">
-                <label for="endTime">🏁 ساعت پایان</label>
-                <input id="endTime" type="time" required>
-            </div>
-
-        </div>
-
-        <button class="primary" type="submit">
-            ✨ ثبت فعالیت
-        </button>
-    </form>
+  <p class="muted" id="progressText">پیشرفت امروز: ۰٪</p>
+  <div class="progress"><div id="progressBar"></div></div>
+  <p class="muted" id="totalTime">مجموع زمان فعالیت‌ها: ۰ دقیقه</p>
 </section>
 
-<section class="card">
-    <h2>📊 آمار روزانه</h2>
+<section class="panel">
+  <div class="row">
+    <h2>🗓️ برنامه‌های روزانه</h2>
+    <span class="badge" id="roleBadge">بازدیدکننده</span>
+  </div>
+
+  <label for="filterDate">انتخاب تاریخ برای مشاهده برنامه‌ها</label>
+  <input id="filterDate" type="text" inputmode="numeric"
+         placeholder="۱۴۰۵/۰۷/۲۵" maxlength="10">
+
+  <div style="height:12px"></div>
+
+  <input id="search" type="search"
+         placeholder="🔎 جست‌وجو بین فعالیت‌ها...">
+
+  <p class="muted" id="status">در حال اتصال به پایگاه داده...</p>
+  <div id="taskList"><div class="empty">در حال بارگذاری...</div></div>
+</section>
+
+<section class="panel hidden" id="adminPanel">
+  <h2 id="formHeading">➕ افزودن فعالیت جدید</h2>
+
+  <form id="taskForm">
+    <input type="hidden" id="editId">
 
     <div class="grid">
-        <div class="field">
-            <label for="searchDate">📅 تاریخ موردنظر</label>
-            <input id="searchDate" type="text"
-                   inputmode="numeric"
-                   autocomplete="off"
-                   placeholder="۱۴۰۵/۰۷/۲۵"
-                   maxlength="10">
-        </div>
+      <div class="full">
+        <label for="taskTitle">عنوان فعالیت</label>
+        <input id="taskTitle" required maxlength="120"
+               placeholder="مثلاً مطالعه فصل اول فیزیک">
+      </div>
 
-        <div class="field">
-            <label for="searchText">🔍 جست‌وجوی فعالیت</label>
-            <input id="searchText" type="search"
-                   placeholder="نام فعالیت...">
-        </div>
+      <div>
+        <label for="category">دسته‌بندی</label>
+        <select id="category">
+          <option value="study">📚 مطالعه</option>
+          <option value="exercise">🏋️ ورزش</option>
+          <option value="work">💼 کار</option>
+          <option value="personal">🌟 شخصی</option>
+          <option value="other">🎯 سایر</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="taskDate">تاریخ شمسی</label>
+        <input id="taskDate" required inputmode="numeric"
+               maxlength="10" placeholder="۱۴۰۵/۰۷/۲۵">
+      </div>
+
+      <div>
+        <label for="startTime">ساعت شروع</label>
+        <input id="startTime" type="time" required value="08:00">
+      </div>
+
+      <div>
+        <label for="endTime">ساعت پایان</label>
+        <input id="endTime" type="time" required value="09:00">
+      </div>
+
+      <div class="full">
+        <button id="saveButton" type="submit">ثبت فعالیت</button>
+      </div>
+      <div class="full hidden" id="cancelEditBox">
+        <button type="button" class="secondary" id="cancelEdit">
+          لغو ویرایش
+        </button>
+      </div>
     </div>
-
-    <div class="stats">
-        <div class="stat">
-            <div class="number" id="totalTasks">۰</div>
-            <div class="caption">📋 تعداد فعالیت‌ها</div>
-        </div>
-
-        <div class="stat">
-            <div class="number" id="doneTasks">۰</div>
-            <div class="caption">✅ فعالیت‌های انجام‌شده</div>
-        </div>
-
-        <div class="stat">
-            <div class="number" id="studyHours">۰</div>
-            <div class="caption">📚 ساعت مطالعه</div>
-        </div>
-
-        <div class="stat">
-            <div class="number" id="activityHours">۰</div>
-            <div class="caption">⏱ مجموع ساعات فعالیت</div>
-        </div>
-    </div>
-
-    <h2 style="margin-top:25px">🚀 پیشرفت روزانه</h2>
-
-    <div class="progress-track">
-        <div class="progress-fill" id="progressFill"></div>
-    </div>
-
-    <div class="progress-caption" id="progressText">
-        ۰٪ تکمیل شده
-    </div>
+  </form>
 </section>
 
-<section class="card">
-    <h2>📝 فعالیت‌های روز انتخاب‌شده</h2>
-    <div id="taskList"></div>
+<section class="panel">
+  <h2>📈 گزارش هفتگی مطالعه</h2>
+  <div id="weeklyReport" class="muted">در حال محاسبه...</div>
 </section>
 
-<section class="card">
-    <h2>📚 گزارش هفتگی مطالعه</h2>
-    <div id="weeklyStats"></div>
+<section class="panel">
+  <div class="row">
+    <h2>🔐 مدیریت سایت</h2>
+  </div>
+
+  <p class="muted">
+    همه می‌توانند برنامه‌ها را ببینند. برای افزودن، ویرایش یا حذف فعالیت،
+    باید با حساب مدیر وارد شوی.
+  </p>
+
+  <div id="loginBox">
+    <form id="loginForm">
+      <label for="adminEmail">ایمیل مدیر</label>
+      <input id="adminEmail" type="email" required
+             autocomplete="username" placeholder="ایمیل حساب مدیر">
+
+      <div style="height:12px"></div>
+
+      <label for="adminPassword">رمز عبور</label>
+      <input id="adminPassword" type="password" required
+             autocomplete="current-password" placeholder="رمز عبور">
+
+      <div style="height:12px"></div>
+      <button id="loginButton" type="submit">ورود مدیر</button>
+    </form>
+  </div>
+
+  <div id="logoutBox" class="hidden">
+    <p class="muted">وضعیت: وارد حساب مدیر شده‌ای.</p>
+    <button id="logoutButton" class="secondary">خروج از حساب مدیر</button>
+  </div>
+
+  <p id="authMessage" class="muted" aria-live="polite"></p>
 </section>
 
-<section class="card">
-    <h2>🗂️ سوابق فعالیت‌ها</h2>
-
-    <p class="section-caption">
-        آخرین فعالیت‌های ثبت‌شده در این مرورگر
-    </p>
-
-    <div id="historyList"></div>
-
-    <button type="button" class="secondary"
-            id="showAllBtn"
-            style="width:100%;margin-top:15px">
-        📂 نمایش همه سوابق
-    </button>
-</section>
-
-<footer>
-    سازنده : توسط طاها مهدی نژاد
-</footer>
-
+<footer>سازنده : توسط طاها مهدی نژاد</footer>
 </div>
 
-<script>
-"use strict";
+<script type="module">
+import { initializeApp }
+  from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  deleteDoc,
+  updateDoc,
+  doc,
+  onSnapshot,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
+
+/* تنظیمات پروژه Firebase */
+const firebaseConfig = {
+  apiKey: "AIzaSyDy8OngLwR7EIt5CGtzwfe8DE3OAa4dCe0",
+  authDomain: "my-day-28973.firebaseapp.com",
+  projectId: "my-day-28973",
+  storageBucket: "my-day-28973.firebasestorage.app",
+  messagingSenderId: "1082774485077",
+  appId: "1:1082774485077:web:c2f63c3e0cf171272c7cdc",
+  measurementId: "G-5V8L1G62KW"
+};
+
+/* شناسه حساب مدیر */
+const ADMIN_UID = "50TZy5uIDcZpArZdTEG2eHcr3lP2";
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const activitiesRef = collection(db, "activities");
+
+let currentUser = null;
+let isAdmin = false;
+let activities = [];
+let unsubscribeActivities = null;
 
 const $ = id => document.getElementById(id);
 
-const STORAGE_KEY = "my-day-planner-v1";
-
 const categoryNames = {
-    study: "📚 مطالعه",
-    exercise: "🏋️ ورزش",
-    work: "💼 کار",
-    personal: "🌟 شخصی",
-    other: "🎯 سایر"
+  study: "📚 مطالعه",
+  exercise: "🏋️ ورزش",
+  work: "💼 کار",
+  personal: "🌟 شخصی",
+  other: "🎯 سایر"
 };
 
-let tasks = [];
-let showAllHistory = false;
-
-function toEnglishDigits(value) {
-    return String(value)
-        .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d))
-        .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
-}
-
-function toPersianDigits(value) {
-    return String(value).replace(/[0-9]/g, d =>
-        "۰۱۲۳۴۵۶۷۸۹"[Number(d)]
-    );
-}
-
-/* تاریخ: این بخش همان اسلش خودکار قبلی است */
-function setupJalaliDateInput(id) {
-    const input = $(id);
-
-    if (!input) return;
-
-    input.addEventListener("input", function () {
-        const oldValue = this.value;
-        const oldPosition = this.selectionStart || oldValue.length;
-
-        const digitsBeforeCursor = toEnglishDigits(
-            oldValue.slice(0, oldPosition)
-        ).replace(/[^0-9]/g, "").length;
-
-        let digits = toEnglishDigits(oldValue)
-            .replace(/[^0-9]/g, "")
-            .slice(0, 8);
-
-        let formatted = digits;
-
-        if (digits.length > 4) {
-            formatted =
-                digits.slice(0, 4) + "/" +
-                digits.slice(4);
-        }
-
-        if (digits.length > 6) {
-            formatted =
-                digits.slice(0, 4) + "/" +
-                digits.slice(4, 6) + "/" +
-                digits.slice(6, 8);
-        }
-
-        formatted = toPersianDigits(formatted);
-
-        this.value = formatted;
-
-        let newPosition = 0;
-        let count = 0;
-
-        while (newPosition < formatted.length &&
-               count < digitsBeforeCursor) {
-            if (/[۰-۹0-9]/.test(formatted[newPosition])) {
-                count++;
-            }
-            newPosition++;
-        }
-
-        if (digitsBeforeCursor > 4 && newPosition < formatted.length) {
-            newPosition++;
-        }
-
-        if (digitsBeforeCursor > 6 && newPosition < formatted.length) {
-            newPosition++;
-        }
-
-        try {
-            this.setSelectionRange(
-                Math.min(newPosition, formatted.length),
-                Math.min(newPosition, formatted.length)
-            );
-        } catch (e) {}
-    });
-
-    input.addEventListener("blur", function () {
-        const parsed = parseJalali(this.value);
-
-        if (this.value.trim() !== "" && parsed) {
-            this.value = formatJalali(parsed);
-        }
-    });
-}
-
-setupJalaliDateInput("taskDate");
-setupJalaliDateInput("searchDate");
-
-function gregorianToJalali(dateString) {
-    const parts = dateString.split("-").map(Number);
-
-    if (parts.length !== 3 || parts.some(n => !n)) {
-        return null;
-    }
-
-    const date = new Date(Date.UTC(
-        parts[0], parts[1] - 1, parts[2], 12
-    ));
-
-    try {
-        const formatter = new Intl.DateTimeFormat(
-            "en-US-u-ca-persian-nu-latn",
-            {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-                timeZone: "UTC"
-            }
-        );
-
-        const result = {};
-
-        formatter.formatToParts(date).forEach(part => {
-            if (part.type === "year") result.year = Number(part.value);
-            if (part.type === "month") result.month = Number(part.value);
-            if (part.type === "day") result.day = Number(part.value);
-        });
-
-        if (result.year && result.month && result.day) {
-            return result;
-        }
-    } catch (e) {}
-
-    return null;
+function faNumber(value) {
+  return Number(value).toLocaleString("fa-IR");
 }
 
 function todayJalali() {
-    const now = new Date();
+  const parts = new Intl.DateTimeFormat("en-US-u-ca-persian", {
+    year:"numeric", month:"2-digit", day:"2-digit"
+  }).formatToParts(new Date());
 
-    const dateString =
-        now.getFullYear() + "-" +
-        String(now.getMonth() + 1).padStart(2, "0") + "-" +
-        String(now.getDate()).padStart(2, "0");
-
-    const jalali = gregorianToJalali(dateString);
-
-    if (jalali) return formatJalali(jalali);
-
-    return "۱۴۰۵/۰۱/۰۱";
+  const get = type => parts.find(p => p.type === type).value;
+  return `${get("year")}/${get("month")}/${get("day")}`;
 }
 
-function formatJalali(date) {
-    return toPersianDigits(
-        String(date.year).padStart(4, "0") + "/" +
-        String(date.month).padStart(2, "0") + "/" +
-        String(date.day).padStart(2, "0")
-    );
+function normalizeDate(value) {
+  let s = String(value || "")
+    .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d))
+    .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
+    .replace(/\D/g, "");
+
+  if (s.length === 8) {
+    s = s.slice(0,4) + "/" + s.slice(4,6) + "/" + s.slice(6,8);
+  }
+
+  return s;
 }
 
-function parseJalali(value) {
-    const digits = toEnglishDigits(String(value || ""))
-        .replace(/[^0-9]/g, "");
-
-    if (digits.length !== 8) return null;
-
-    const year = Number(digits.slice(0, 4));
-    const month = Number(digits.slice(4, 6));
-    const day = Number(digits.slice(6, 8));
-
-    if (year < 1300 || year > 1500) return null;
-    if (month < 1 || month > 12) return null;
-    if (day < 1 || day > 31) return null;
-
-    if (month <= 6 && day > 31) return null;
-    if (month >= 7 && month <= 11 && day > 30) return null;
-    if (month === 12 && day > 30) return null;
-
-    return {year, month, day};
+function formatDateInput(input) {
+  input.value = normalizeDate(input.value);
 }
 
-function jalaliToGregorian(jy, jm, jd) {
-    jy += 1595;
-
-    let days =
-        -355668 +
-        365 * jy +
-        Math.floor(jy / 33) * 8 +
-        Math.floor(((jy % 33) + 3) / 4) +
-        jd;
-
-    if (jm < 7) {
-        days += (jm - 1) * 31;
-    } else {
-        days += (jm - 7) * 30 + 186;
-    }
-
-    let gy = 400 * Math.floor(days / 146097);
-    days %= 146097;
-
-    if (days > 36524) {
-        gy += 100 * Math.floor(--days / 36524);
-        days %= 36524;
-
-        if (days >= 365) days++;
-    }
-
-    gy += 4 * Math.floor(days / 1461);
-    days %= 1461;
-
-    if (days > 365) {
-        gy += Math.floor((days - 1) / 365);
-        days = (days - 1) % 365;
-    }
-
-    let gd = days + 1;
-
-    const leap =
-        gy % 4 === 0 &&
-        (gy % 100 !== 0 || gy % 400 === 0);
-
-    const monthDays = [
-        0, 31, leap ? 29 : 28, 31, 30, 31,
-        30, 31, 31, 30, 31, 30, 31
-    ];
-
-    let gm = 1;
-
-    while (gm <= 12 && gd > monthDays[gm]) {
-        gd -= monthDays[gm];
-        gm++;
-    }
-
-    return new Date(Date.UTC(gy, gm - 1, gd, 12));
+function validDate(date) {
+  return /^\d{4}\/\d{2}\/\d{2}$/.test(date);
 }
 
-function dateKey(date) {
-    return formatJalali(date);
+function minutesBetween(start, end) {
+  if (!start || !end) return 0;
+  const [sh,sm] = start.split(":").map(Number);
+  const [eh,em] = end.split(":").map(Number);
+  let minutes = (eh * 60 + em) - (sh * 60 + sm);
+  if (minutes < 0) minutes += 1440;
+  return minutes;
 }
 
-function normalizeStoredDate(value) {
-    if (!value) return "";
+function durationText(minutes) {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
 
-    const text = String(value);
-
-    const jalali = parseJalali(text);
-
-    if (jalali) return formatJalali(jalali);
-
-    const match = text.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
-
-    if (match) {
-        const y = match[1];
-        const m = match[2].padStart(2, "0");
-        const d = match[3].padStart(2, "0");
-
-        const converted = gregorianToJalali(y + "-" + m + "-" + d);
-
-        if (converted) return formatJalali(converted);
-    }
-
-    return text;
-}
-
-function duration(task) {
-    if (!task.start || !task.end) return 0;
-
-    const start = task.start.split(":").map(Number);
-    const end = task.end.split(":").map(Number);
-
-    if (start.length !== 2 || end.length !== 2) return 0;
-
-    let minutes =
-        (end[0] * 60 + end[1]) -
-        (start[0] * 60 + start[1]);
-
-    if (minutes < 0) minutes += 1440;
-
-    return minutes;
-}
-
-function formatHours(minutes) {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-
-    if (hours === 0) {
-        return toPersianDigits(mins) + " دقیقه";
-    }
-
-    if (mins === 0) {
-        return toPersianDigits(hours) + " ساعت";
-    }
-
-    return toPersianDigits(hours) + " ساعت و " +
-           toPersianDigits(mins) + " دقیقه";
-}
-
-function showNotice(message, type) {
-    const notice = $("notice");
-
-    notice.textContent = message;
-    notice.className = "notice show " + type;
-
-    clearTimeout(showNotice.timer);
-
-    showNotice.timer = setTimeout(() => {
-        notice.className = "notice";
-    }, 3500);
-}
-
-function saveTasks() {
-    try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-    } catch (e) {
-        showNotice("ذخیره اطلاعات انجام نشد؛ فضای مرورگر را بررسی کن.", "error");
-    }
-}
-
-function loadTasks() {
-    try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-
-        if (!saved) {
-            tasks = [];
-            return;
-        }
-
-        const data = JSON.parse(saved);
-
-        if (!Array.isArray(data)) {
-            tasks = [];
-            return;
-        }
-
-        tasks = data.map((item, index) => ({
-            id: item.id || (Date.now() + index),
-            title: item.title || item.name || "فعالیت بدون عنوان",
-            type: categoryNames[item.type]
-                ? item.type
-                : (categoryNames[item.category]
-                    ? item.category
-                    : "other"),
-            date: normalizeStoredDate(item.date || item.taskDate || ""),
-            start: item.start || item.startTime || "",
-            end: item.end || item.endTime || "",
-            done: Boolean(item.done || item.completed)
-        }));
-    } catch (e) {
-        tasks = [];
-    }
-}
-
-function getSelectedDate() {
-    const parsed = parseJalali($("searchDate").value);
-    return parsed ? formatJalali(parsed) : "";
-}
-
-function getDailyTasks() {
-    const date = getSelectedDate();
-    const query = $("searchText").value.trim().toLowerCase();
-
-    return tasks.filter(task => {
-        const sameDate = task.date === date;
-        const matches = task.title.toLowerCase().includes(query);
-
-        return sameDate && matches;
-    });
-}
-
-function renderStats() {
-    const date = getSelectedDate();
-
-    const daily = tasks.filter(task => task.date === date);
-
-    const done = daily.filter(task => task.done).length;
-
-    const studyMinutes = daily
-        .filter(task => task.type === "study")
-        .reduce((sum, task) => sum + duration(task), 0);
-
-    const allMinutes = daily.reduce(
-        (sum, task) => sum + duration(task), 0
-    );
-
-    const percent = daily.length
-        ? Math.round(done / daily.length * 100)
-        : 0;
-
-    $("totalTasks").textContent = toPersianDigits(daily.length);
-    $("doneTasks").textContent = toPersianDigits(done);
-    $("studyHours").textContent = formatHours(studyMinutes);
-    $("activityHours").textContent = formatHours(allMinutes);
-
-    $("progressFill").style.width = percent + "%";
-
-    $("progressText").textContent =
-        toPersianDigits(percent) + "٪ تکمیل شده";
+  if (h && m) return `${faNumber(h)} ساعت و ${faNumber(m)} دقیقه`;
+  if (h) return `${faNumber(h)} ساعت`;
+  return `${faNumber(m)} دقیقه`;
 }
 
 function escapeHTML(value) {
-    return String(value).replace(/[&<>"']/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-    })[char]);
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[ch]);
+}
+
+function showAuthMessage(message) {
+  $("authMessage").textContent = message;
+}
+
+function visibleActivities() {
+  const date = normalizeDate($("filterDate").value);
+  const search = $("search").value.trim().toLowerCase();
+
+  return activities
+    .filter(a => !date || a.date === date)
+    .filter(a => !search || a.title.toLowerCase().includes(search))
+    .sort((a,b) =>
+      (a.date || "").localeCompare(b.date || "") ||
+      (a.startTime || "").localeCompare(b.startTime || "")
+    );
 }
 
 function renderTasks() {
-    const list = $("taskList");
-    const daily = getDailyTasks();
+  const filtered = visibleActivities();
+  const list = $("taskList");
 
-    if (!getSelectedDate()) {
-        list.innerHTML =
-            '<div class="empty">تاریخ را به شکل سال/ماه/روز وارد کن.</div>';
-        return;
-    }
+  if (!filtered.length) {
+    list.innerHTML = '<div class="empty">برای این تاریخ فعالیتی ثبت نشده است.</div>';
+  } else {
+    list.innerHTML = filtered.map(a => {
+      const minutes = minutesBetween(a.startTime, a.endTime);
 
-    if (daily.length === 0) {
-        list.innerHTML =
-            '<div class="empty">🗒️ برای این روز فعالیتی پیدا نشد.</div>';
-        return;
-    }
+      return `
+        <article class="task ${a.completed ? "completed" : ""}">
+          <div class="task-title">${escapeHTML(a.title)}</div>
+          <span class="badge">${categoryNames[a.category] || categoryNames.other}</span>
 
-    daily.sort((a, b) => a.start.localeCompare(b.start));
+          <div class="task-meta">
+            📅 ${escapeHTML(a.date || "")}<br>
+            🕒 ${escapeHTML(a.startTime || "--:--")} تا ${escapeHTML(a.endTime || "--:--")}<br>
+            ⏱️ ${durationText(minutes)}
+          </div>
 
-    list.innerHTML = daily.map(task => `
-        <div class="task ${task.done ? "done" : ""}">
-            <div class="task-top">
-                <input class="task-check" type="checkbox"
-                       data-id="${escapeHTML(task.id)}"
-                       ${task.done ? "checked" : ""}
-                       aria-label="انجام شد">
-
-                <div class="task-info">
-                    <div class="task-title">${escapeHTML(task.title)}</div>
-
-                    <div class="badge">
-                        ${escapeHTML(categoryNames[task.type] || "🎯 سایر")}
-                    </div>
-
-                    <div class="task-meta">
-                        📅 ${escapeHTML(task.date)}<br>
-                        🕒 ${escapeHTML(task.start)} تا ${escapeHTML(task.end)}<br>
-                        ⏱ مدت فعالیت: ${escapeHTML(formatHours(duration(task)))}
-                    </div>
-                </div>
-            </div>
-
+          ${isAdmin ? `
             <div class="task-actions">
-                <button class="danger delete-btn"
-                        type="button"
-                        data-id="${escapeHTML(task.id)}">
-                    🗑️ حذف فعالیت
-                </button>
+              <label>
+                <input type="checkbox" data-complete="${a.id}"
+                  ${a.completed ? "checked" : ""}>
+                انجام شد
+              </label>
+              <button class="secondary" data-edit="${a.id}">ویرایش</button>
+              <button class="danger" data-delete="${a.id}">حذف</button>
             </div>
-        </div>
-    `).join("");
-}
-
-function renderWeeklyStats() {
-    const container = $("weeklyStats");
-    const selected = parseJalali($("searchDate").value);
-
-    if (!selected) {
-        container.innerHTML =
-            '<div class="empty">ابتدا تاریخ معتبر وارد کن.</div>';
-        return;
-    }
-
-    const selectedGregorian = jalaliToGregorian(
-        selected.year, selected.month, selected.day
-    );
-
-    const days = [];
-
-    const weekday = selectedGregorian.getUTCDay();
-    const daysSinceSaturday = (weekday + 1) % 7;
-
-    const saturday = new Date(selectedGregorian.getTime());
-
-    saturday.setUTCDate(
-        saturday.getUTCDate() - daysSinceSaturday
-    );
-
-    for (let i = 0; i < 7; i++) {
-        const current = new Date(saturday.getTime());
-        current.setUTCDate(current.getUTCDate() + i);
-
-        const gregorianString =
-            current.getUTCFullYear() + "-" +
-            String(current.getUTCMonth() + 1).padStart(2, "0") + "-" +
-            String(current.getUTCDate()).padStart(2, "0");
-
-        const converted = gregorianToJalali(gregorianString);
-
-        if (!converted) continue;
-
-        const date = dateKey(converted);
-
-        const minutes = tasks
-            .filter(task => task.date === date && task.type === "study")
-            .reduce((sum, task) => sum + duration(task), 0);
-
-        days.push({date, minutes});
-    }
-
-    const maxMinutes = Math.max(
-        60,
-        ...days.map(day => day.minutes)
-    );
-
-    const total = days.reduce((sum, day) => sum + day.minutes, 0);
-
-    const labels = [
-        "شنبه", "یکشنبه", "دوشنبه",
-        "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"
-    ];
-
-    container.innerHTML = `
-        <div style="margin-bottom:18px;color:var(--muted);font-size:13px;line-height:2">
-            مجموع مطالعه این هفته:
-            <strong style="color:var(--cyan)">
-                ${escapeHTML(formatHours(total))}
-            </strong>
-        </div>
-
-        ${days.map((day, index) => {
-            const width = Math.round(day.minutes / maxMinutes * 100);
-
-            return `
-                <div class="bar-row">
-                    <div>${labels[index]}</div>
-                    <div class="bar-track">
-                        <div class="bar-fill" style="width:${width}%"></div>
-                    </div>
-                    <div class="bar-value">
-                        ${day.minutes ? escapeHTML(formatHours(day.minutes)) : "۰"}
-                    </div>
-                </div>
-            `;
-        }).join("")}
-    `;
-}
-
-function renderHistory() {
-    const container = $("historyList");
-
-    const sorted = [...tasks].sort((a, b) => {
-        const dateCompare = b.date.localeCompare(a.date);
-
-        if (dateCompare !== 0) return dateCompare;
-
-        return b.start.localeCompare(a.start);
-    });
-
-    const shown = showAllHistory ? sorted : sorted.slice(0, 5);
-
-    if (!shown.length) {
-        container.innerHTML =
-            '<div class="empty">📭 هنوز فعالیتی ثبت نکرده‌ای.</div>';
-        return;
-    }
-
-    container.innerHTML = shown.map(task => `
-        <div class="task ${task.done ? "done" : ""}">
-            <div class="task-title">${escapeHTML(task.title)}</div>
-
-            <div class="badge">
-                ${escapeHTML(categoryNames[task.type] || "🎯 سایر")}
-            </div>
-
+          ` : `
             <div class="task-meta">
-                📅 ${escapeHTML(task.date)}<br>
-                🕒 ${escapeHTML(task.start)} تا ${escapeHTML(task.end)}<br>
-                ⏱ ${escapeHTML(formatHours(duration(task)))}
-                ${task.done ? "<br>✅ انجام شده" : ""}
+              وضعیت: ${a.completed ? "انجام‌شده ✅" : "در انتظار انجام"}
             </div>
-        </div>
-    `).join("");
+          `}
+        </article>
+      `;
+    }).join("");
+  }
+
+  renderStats();
+}
+
+function renderStats() {
+  const today = normalizeDate($("filterDate").value) || todayJalali();
+  const todayItems = activities.filter(a => a.date === today);
+  const done = todayItems.filter(a => a.completed).length;
+
+  const studyMinutes = todayItems
+    .filter(a => a.category === "study")
+    .reduce((sum,a) => sum + minutesBetween(a.startTime,a.endTime), 0);
+
+  const totalMinutes = todayItems
+    .reduce((sum,a) => sum + minutesBetween(a.startTime,a.endTime), 0);
+
+  const percent = todayItems.length
+    ? Math.round(done / todayItems.length * 100)
+    : 0;
+
+  $("todayLabel").textContent = today;
+  $("totalCount").textContent = faNumber(todayItems.length);
+  $("doneCount").textContent = faNumber(done);
+  $("studyTime").textContent = durationText(studyMinutes);
+  $("totalTime").textContent = "مجموع زمان فعالیت‌ها: " + durationText(totalMinutes);
+  $("progressText").textContent = "پیشرفت امروز: " + faNumber(percent) + "٪";
+  $("progressBar").style.width = percent + "%";
+}
+
+function renderWeekly() {
+  const now = new Date();
+  const currentDate = todayJalali();
+  const items = activities.filter(a => a.category === "study");
+
+  /*
+    تاریخ شمسی به عدد تبدیل می‌شود تا روزهای اخیر مرتب شوند.
+    برای گزارش دقیق هفت روز اخیر، تاریخ میلادی هر فعالیت
+    در زمان ثبت نیز ذخیره می‌شود.
+  */
+  const recent = items.filter(a => {
+    if (!a.createdAtMs) return a.date === currentDate;
+    return now.getTime() - a.createdAtMs <= 7 * 24 * 60 * 60 * 1000
+      && now.getTime() >= a.createdAtMs;
+  });
+
+  const total = recent.reduce((sum,a) =>
+    sum + minutesBetween(a.startTime,a.endTime), 0);
+
+  $("weeklyReport").innerHTML = `
+    <div class="week-row">
+      <span>📚 فعالیت‌های مطالعه در ۷ روز اخیر</span>
+      <strong>${faNumber(recent.length)}</strong>
+    </div>
+    <div class="week-row">
+      <span>⏱️ مجموع زمان مطالعه</span>
+      <strong>${escapeHTML(durationText(total))}</strong>
+    </div>
+  `;
 }
 
 function renderAll() {
-    renderStats();
-    renderTasks();
-    renderWeeklyStats();
-    renderHistory();
+  renderTasks();
+  renderWeekly();
 }
 
-$("taskForm").addEventListener("submit", function (event) {
-    event.preventDefault();
+function updateRoleUI() {
+  $("roleBadge").textContent = isAdmin ? "مدیر سایت ✅" : "بازدیدکننده";
+  $("adminPanel").classList.toggle("hidden", !isAdmin);
+  $("loginBox").classList.toggle("hidden", isAdmin);
+  $("logoutBox").classList.toggle("hidden", !isAdmin);
+  renderAll();
+}
 
-    const title = $("taskTitle").value.trim();
-    const parsed = parseJalali($("taskDate").value);
-    const start = $("startTime").value;
-    const end = $("endTime").value;
+function resetForm() {
+  $("taskForm").reset();
+  $("editId").value = "";
+  $("taskDate").value = todayJalali();
+  $("startTime").value = "08:00";
+  $("endTime").value = "09:00";
+  $("formHeading").textContent = "➕ افزودن فعالیت جدید";
+  $("saveButton").textContent = "ثبت فعالیت";
+  $("cancelEditBox").classList.add("hidden");
+}
 
-    if (!title) {
-        showNotice("عنوان فعالیت را وارد کن.", "error");
-        return;
+$("taskDate").value = todayJalali();
+$("filterDate").value = todayJalali();
+
+$("taskDate").addEventListener("input", () => formatDateInput($("taskDate")));
+$("filterDate").addEventListener("input", () => {
+  formatDateInput($("filterDate"));
+  renderAll();
+});
+$("search").addEventListener("input", renderTasks);
+
+$("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const email = $("adminEmail").value.trim();
+  const password = $("adminPassword").value;
+  $("loginButton").disabled = true;
+  showAuthMessage("در حال ورود...");
+
+  try {
+    const result = await signInWithEmailAndPassword(auth,email,password);
+
+    if (result.user.uid !== ADMIN_UID) {
+      await signOut(auth);
+      showAuthMessage("این حساب اجازه مدیریت سایت را ندارد.");
+    } else {
+      showAuthMessage("ورود مدیر موفق بود.");
+    }
+  } catch (error) {
+    showAuthMessage("ورود ناموفق بود. ایمیل و رمز را بررسی کن.");
+  } finally {
+    $("loginButton").disabled = false;
+  }
+});
+
+$("logoutButton").addEventListener("click", async () => {
+  try {
+    await signOut(auth);
+    showAuthMessage("از حساب مدیر خارج شدی.");
+  } catch {
+    showAuthMessage("خروج ناموفق بود. دوباره تلاش کن.");
+  }
+});
+
+$("taskForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (!isAdmin || !currentUser || currentUser.uid !== ADMIN_UID) {
+    showAuthMessage("برای ثبت فعالیت باید مدیر وارد شده باشد.");
+    return;
+  }
+
+  const title = $("taskTitle").value.trim();
+  const category = $("category").value;
+  const date = normalizeDate($("taskDate").value);
+  const startTime = $("startTime").value;
+  const endTime = $("endTime").value;
+  const editId = $("editId").value;
+
+  if (!title || !validDate(date) || !startTime || !endTime) {
+    showAuthMessage("لطفاً عنوان، تاریخ و ساعت‌ها را درست وارد کن.");
+    return;
+  }
+
+  const payload = {
+    title,
+    category,
+    date,
+    startTime,
+    endTime
+  };
+
+  $("saveButton").disabled = true;
+
+  try {
+    if (editId) {
+      const existing = activities.find(a => a.id === editId);
+      if (!existing) throw new Error("Activity not found");
+
+      await updateDoc(doc(db,"activities",editId), payload);
+      showAuthMessage("فعالیت ویرایش شد.");
+    } else {
+      await addDoc(activitiesRef, {
+        ...payload,
+        completed:false,
+        createdAt:serverTimestamp(),
+        createdAtMs:Date.now(),
+        createdBy:currentUser.uid
+      });
+      showAuthMessage("فعالیت با موفقیت ثبت شد.");
     }
 
-    if (!parsed) {
-        showNotice("تاریخ را به شکل ۱۴۰۵/۰۷/۲۵ وارد کن.", "error");
-        $("taskDate").focus();
-        return;
+    resetForm();
+  } catch (error) {
+    console.error(error);
+    showAuthMessage("ذخیره انجام نشد. اتصال و قوانین Firebase را بررسی کن.");
+  } finally {
+    $("saveButton").disabled = false;
+  }
+});
+
+$("cancelEdit").addEventListener("click", resetForm);
+
+$("taskList").addEventListener("click", async event => {
+  if (!isAdmin || !currentUser || currentUser.uid !== ADMIN_UID) return;
+
+  const editButton = event.target.closest("[data-edit]");
+  const deleteButton = event.target.closest("[data-delete]");
+
+  if (editButton) {
+    const item = activities.find(a => a.id === editButton.dataset.edit);
+    if (!item) return;
+
+    $("editId").value = item.id;
+    $("taskTitle").value = item.title;
+    $("category").value = item.category || "other";
+    $("taskDate").value = item.date || todayJalali();
+    $("startTime").value = item.startTime || "08:00";
+    $("endTime").value = item.endTime || "09:00";
+    $("formHeading").textContent = "✏️ ویرایش فعالیت";
+    $("saveButton").textContent = "ذخیره تغییرات";
+    $("cancelEditBox").classList.remove("hidden");
+
+    $("adminPanel").scrollIntoView({behavior:"smooth"});
+  }
+
+  if (deleteButton) {
+    const id = deleteButton.dataset.delete;
+    if (!confirm("از حذف این فعالیت مطمئنی؟")) return;
+
+    try {
+      await deleteDoc(doc(db,"activities",id));
+      showAuthMessage("فعالیت حذف شد.");
+    } catch (error) {
+      console.error(error);
+      showAuthMessage("حذف انجام نشد. قوانین و اتصال را بررسی کن.");
     }
+  }
+});
 
-    if (!start || !end) {
-        showNotice("ساعت شروع و پایان را وارد کن.", "error");
-        return;
-    }
+$("taskList").addEventListener("change", async event => {
+  const checkbox = event.target.closest("[data-complete]");
+  if (!checkbox || !isAdmin || !currentUser ||
+      currentUser.uid !== ADMIN_UID) return;
 
-    if (start === end) {
-        showNotice("ساعت شروع و پایان نباید یکسان باشند.", "error");
-        return;
-    }
-
-    const date = formatJalali(parsed);
-
-    tasks.push({
-        id: Date.now(),
-        title,
-        type: $("taskType").value,
-        date,
-        start,
-        end,
-        done: false
+  try {
+    await updateDoc(doc(db,"activities",checkbox.dataset.complete), {
+      completed:checkbox.checked
     });
-
-    saveTasks();
-
-    $("taskTitle").value = "";
-    $("taskDate").value = date;
-    $("searchDate").value = date;
-    $("searchText").value = "";
-
-    renderAll();
-
-    showNotice("✅ فعالیت با موفقیت ثبت شد.", "success");
+  } catch (error) {
+    console.error(error);
+    showAuthMessage("تغییر وضعیت انجام نشد.");
+  }
 });
 
-$("searchDate").addEventListener("input", renderAll);
-$("searchText").addEventListener("input", renderTasks);
+onAuthStateChanged(auth, user => {
+  currentUser = user;
+  isAdmin = !!user && user.uid === ADMIN_UID;
 
-$("taskList").addEventListener("change", function (event) {
-    if (!event.target.classList.contains("task-check")) return;
+  if (user && !isAdmin) {
+    signOut(auth).catch(console.error);
+    showAuthMessage("این حساب مدیر نیست.");
+  }
 
-    const id = Number(event.target.dataset.id);
-    const task = tasks.find(item => Number(item.id) === id);
-
-    if (task) {
-        task.done = event.target.checked;
-        saveTasks();
-        renderAll();
-    }
+  updateRoleUI();
 });
 
-function deleteTask(id) {
-    tasks = tasks.filter(task => String(task.id) !== String(id));
-    saveTasks();
-    renderAll();
-    showNotice("فعالیت حذف شد.", "success");
-}
+onSnapshot(activitiesRef, snapshot => {
+  activities = snapshot.docs.map(d => ({
+    id:d.id,
+    ...d.data()
+  }));
 
-$("taskList").addEventListener("click", function (event) {
-    const button = event.target.closest(".delete-btn");
+  $("status").textContent =
+    "اتصال برقرار است؛ اطلاعات به‌صورت آنلاین به‌روزرسانی می‌شوند.";
 
-    if (button) {
-        deleteTask(button.dataset.id);
-    }
+  renderAll();
+}, error => {
+  console.error(error);
+  $("status").textContent =
+    "دریافت اطلاعات ناموفق بود. قوانین Firestore و اتصال را بررسی کن.";
 });
 
-$("showAllBtn").addEventListener("click", function () {
-    showAllHistory = !showAllHistory;
-
-    this.textContent = showAllHistory
-        ? "📂 نمایش سوابق اخیر"
-        : "📂 نمایش همه سوابق";
-
-    renderHistory();
-});
-
-function initializeToday() {
-    loadTasks();
-
-    const today = todayJalali();
-
-    $("taskDate").value = today;
-    $("searchDate").value = today;
-
-    renderAll();
-}
-
-initializeToday();
 </script>
-
 </body>
 </html>
