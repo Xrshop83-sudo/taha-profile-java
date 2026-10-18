@@ -6,6 +6,63 @@
 <meta name="theme-color" content="#071225">
 <title>برنامه‌ریزی روزانه من</title>
 
+/* ===== مرتب‌سازی کادرها و رفع زوم آیفون ===== */
+
+/* جلوگیری از زوم خودکار هنگام انتخاب کادرها */
+input,
+textarea,
+select {
+    font-size: 16px !important;
+    font-family: inherit;
+}
+
+/* یکسان‌سازی کادرهای ورودی */
+input,
+textarea,
+select {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 10px;
+}
+
+/* تنظیم کادرهای چندخطی */
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* مرتب‌سازی دکمه‌ها */
+button {
+    box-sizing: border-box;
+    max-width: 100%;
+    font-family: inherit;
+    border-radius: 10px;
+}
+
+/* جلوگیری از بیرون‌زدگی عناصر */
+* {
+    box-sizing: border-box;
+}
+
+/* جلوگیری از بیرون‌زدگی محتوا در موبایل */
+body {
+    overflow-wrap: break-word;
+}
+
+/* تنظیم نمایش در آیفون */
+@media screen and (max-width: 600px) {
+    input,
+    textarea,
+    select {
+        font-size: 16px !important;
+        width: 100%;
+    }
+}
 <style>
 :root {
   --bg:#071225;
